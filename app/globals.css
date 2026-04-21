@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-crimson: #E8174A;
+  --brand-blue: #1E5BAF;
+  --brand-teal: #2AADA0;
+  --brand-yellow: #F5D300;
+  --brand-black: #0D0D0F;
+  --brand-dark: #111114;
+  --brand-surface: #16161A;
+  --brand-glass: rgba(255,255,255,0.06);
+  --brand-border: rgba(255,255,255,0.10);
+}
+
+html, body {
+  background-color: var(--brand-black);
+  color: #ffffff;
+  scroll-behavior: smooth;
+  cursor: none; /* Custom cursor */
+}
+
+@layer components {
+  .glass-card {
+    background: var(--brand-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--brand-border);
+    border-radius: 16px;
+  }
+  
+  .glass-card-hover {
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .glass-card-hover:hover {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(255,255,255,0.18);
+    transform: translateY(-4px);
+  }
+}
