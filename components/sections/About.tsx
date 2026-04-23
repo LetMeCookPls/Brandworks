@@ -21,13 +21,13 @@ export default function About() {
           
           <div className="font-dm-sans text-gray-300 text-lg leading-relaxed flex flex-col gap-6 max-w-2xl">
             <p>
-              Brandworks is a leading advertising and production agency established with a singular vision: to translate ambitious brand ideas into tangible, impactful realities. We specialize in crossing the divide between conceptual design and physical execution.
+              Brandworks Advertising, a leading service provider in Kuwait, offers a wide range of solutions including Carpentry, Acrylic, Metal, Painting Works, Graphics, Signage, Mall Pop Up Production, Display Stand Installation, Digital and LED Screens, Maintenance, MEP, CCTV Services, and more.
             </p>
             <p>
-              Our expertise spans cutting-edge signage, comprehensive shop installation, immersive interior design, and strategic branding. With an in-house team of designers, engineers, and fabricators, we maintain uncompromising quality control over every detail.
+              With years of experience and a skilled team, we deliver innovative, high-quality solutions to meet diverse client needs, aiming to foster business growth and success through exceptional services and lasting relationships.
             </p>
             <p>
-              Whether it&apos;s a flagship store fit-out, a nationwide wayfinding system, or an entirely new brand identity, we deliver premium solutions that resonate with your audience and elevate your market position.
+              Contact us today for more information on how we can help achieve your business goals.
             </p>
             
             <div className="mt-4 flex items-center gap-3 py-3 px-5 rounded-full bg-white/5 border border-white/10 w-max">
@@ -65,7 +65,7 @@ export default function About() {
             <GlassCard className="relative z-10 p-8 max-w-[280px] sm:max-w-[320px] shadow-2xl ml-12 sm:ml-24 mt-12 sm:mt-24">
               <h4 className="font-syne font-bold text-xl text-white mb-4">Our Mission</h4>
               <p className="font-dm-sans text-gray-200 italic leading-relaxed text-sm sm:text-base">
-                "To empower businesses by constructing visually striking, structurally sound, and strategically aligned physical brand experiences."
+                &quot;To empower businesses by constructing visually striking, structurally sound, and strategically aligned physical brand experiences.&quot;
               </p>
             </GlassCard>
 
