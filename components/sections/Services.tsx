@@ -9,32 +9,34 @@ const services = [
   {
     title: 'Signage',
     icon: <Square size={32} />,
-    color: '#E8174A', // brand-crimson
-    borderColorClass: 'border-t-brand-crimson',
+    color: '#F42525', // brand-red
+    borderColorClass: 'border-t-brand-red',
     description: 'High-impact outdoor and indoor signage designed to capture attention and direct footfall.',
   },
   {
     title: 'Shop Installation',
     icon: <Store size={32} />,
-    color: '#1E5BAF', // brand-blue
-    borderColorClass: 'border-t-brand-blue',
+    color: '#2196E8', // brand-blue-light
+    borderColorClass: 'border-t-brand-blue-light',
     description: 'End-to-end retail fit-outs and professional installations for a flawless brand presence.',
   },
   {
     title: 'Interior Design',
     icon: <Layout size={32} />,
-    color: '#2AADA0', // brand-teal
-    borderColorClass: 'border-t-brand-teal',
+    color: '#0DC76A', // brand-green
+    borderColorClass: 'border-t-brand-green',
     description: 'Transforming spaces into immersive brand environments that engage your customers.',
   },
   {
     title: 'Branding & Design',
     icon: <Palette size={32} />,
-    color: '#F5D300', // brand-yellow
+    color: '#FFD700', // brand-yellow
     borderColorClass: 'border-t-brand-yellow',
     description: 'Strategic visual identities and creative designs that communicate your unique story.',
   },
 ];
+
+const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -49,7 +51,7 @@ const cardVariants = {
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } 
+    transition: { duration: 0.6, ease: EASE } 
   },
 };
 

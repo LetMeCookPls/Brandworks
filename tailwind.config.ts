@@ -9,9 +9,10 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          crimson: "var(--brand-crimson)",
-          blue: "var(--brand-blue)",
-          teal: "var(--brand-teal)",
+          red: "var(--brand-red)",
+          "blue-light": "var(--brand-blue-light)",
+          "blue-dark": "var(--brand-blue-dark)",
+          green: "var(--brand-green)",
           yellow: "var(--brand-yellow)",
           black: "var(--brand-black)",
           dark: "var(--brand-dark)",

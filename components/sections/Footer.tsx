@@ -1,13 +1,6 @@
 'use client';
 
-const LogoMark = () => (
-  <div className="grid grid-cols-2 grid-rows-2 gap-[2px] w-4 h-4">
-    <div className="bg-brand-crimson w-full h-full" />
-    <div className="bg-brand-blue w-full h-full" />
-    <div className="bg-brand-teal w-full h-full" />
-    <div className="bg-brand-yellow w-full h-full" />
-  </div>
-);
+import Logo from '../Logo';
 
 const InstagramIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -36,18 +29,18 @@ export default function Footer() {
   return (
     <footer className="w-full py-12 md:py-16 bg-brand-dark border-t border-white/5 flex flex-col items-center">
       <div className="flex items-center gap-3 mb-6">
-        <LogoMark />
+        <Logo className="w-6 h-6" />
         <span className="font-syne font-bold text-xl tracking-tight text-white">Brandworks Advertising</span>
       </div>
       
       <div className="flex gap-6 mb-8">
-        <a href="#" className="text-gray-400 hover:text-brand-crimson transition-colors">
+        <a href="#" className="text-gray-400 hover:text-brand-red transition-colors">
           <InstagramIcon />
         </a>
-        <a href="#" className="text-gray-400 hover:text-brand-blue transition-colors">
+        <a href="#" className="text-gray-400 hover:text-brand-blue-light transition-colors">
           <LinkedinIcon />
         </a>
-        <a href="#" className="text-gray-400 hover:text-brand-teal transition-colors">
+        <a href="#" className="text-gray-400 hover:text-brand-green transition-colors">
           <WhatsAppIcon />
         </a>
       </div>

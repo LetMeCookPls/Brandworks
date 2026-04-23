@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import SectionHeading from '../ui/SectionHeading';
 import GlassCard from '../ui/GlassCard';
 
+const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+
 export default function Contact() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,7 +32,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.6, ease: EASE }}
         >
           <GlassCard className="h-full p-8 flex flex-col justify-between">
             <div>
@@ -38,7 +40,7 @@ export default function Contact() {
               
               <div className="flex flex-col gap-6">
                 <div className="flex items-start gap-4 text-gray-300">
-                  <div className="mt-1 text-brand-crimson"><MapPin size={24} /></div>
+                  <div className="mt-1 text-brand-red"><MapPin size={24} /></div>
                   <div>
                     <h4 className="font-space-grotesk font-semibold text-white mb-1">Our Studio</h4>
                     <p className="font-dm-sans text-sm leading-relaxed text-gray-400">
@@ -49,7 +51,7 @@ export default function Contact() {
                 </div>
                 
                 <div className="flex items-start gap-4 text-gray-300">
-                  <div className="mt-1 text-brand-blue"><Phone size={24} /></div>
+                  <div className="mt-1 text-brand-blue-light"><Phone size={24} /></div>
                   <div>
                     <h4 className="font-space-grotesk font-semibold text-white mb-1">Phone</h4>
                     <a href="tel:+96500000000" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
@@ -78,7 +80,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
         >
           <GlassCard className="p-8 sm:p-10">
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -91,7 +93,7 @@ export default function Contact() {
                     id="name" 
                     name="name" 
                     required 
-                    className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all"
+                    className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-blue-light focus:ring-1 focus:ring-brand-blue-light transition-all"
                     placeholder="John Doe"
                   />
                 </div>
@@ -103,7 +105,7 @@ export default function Contact() {
                     id="email" 
                     name="email" 
                     required 
-                    className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all"
+                    className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-blue-light focus:ring-1 focus:ring-brand-blue-light transition-all"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -115,7 +117,7 @@ export default function Contact() {
                   id="service" 
                   name="service"
                   required
-                  className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all appearance-none"
+                  className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-blue-light focus:ring-1 focus:ring-brand-blue-light transition-all appearance-none"
                 >
                   <option value="" disabled selected>Select a service...</option>
                   <option value="Signage">Signage</option>
@@ -132,14 +134,14 @@ export default function Contact() {
                   name="message" 
                   rows={4}
                   required
-                  className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all resize-none"
+                  className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-blue-light focus:ring-1 focus:ring-brand-blue-light transition-all resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>
 
               <button 
                 type="submit"
-                className="mt-2 w-full sm:w-auto self-end flex items-center gap-2 bg-brand-crimson text-white font-space-grotesk font-semibold py-3 px-8 rounded-full hover:bg-brand-crimson/90 transition-colors"
+                className="mt-2 w-full sm:w-auto self-end flex items-center gap-2 bg-brand-red text-white font-space-grotesk font-semibold py-3 px-8 rounded-full hover:bg-brand-red/90 transition-colors"
               >
                 Send Message
                 <Send size={18} />

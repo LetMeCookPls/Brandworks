@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --brand-crimson: #E8174A;
-  --brand-blue: #1E5BAF;
-  --brand-teal: #2AADA0;
-  --brand-yellow: #F5D300;
+  --brand-red: #F42525;
+  --brand-blue-light: #2196E8;
+  --brand-blue-dark: #0D35C4;
+  --brand-green: #0DC76A;
+  --brand-yellow: #FFD700;
   --brand-black: #0D0D0F;
   --brand-dark: #111114;
   --brand-surface: #16161A;

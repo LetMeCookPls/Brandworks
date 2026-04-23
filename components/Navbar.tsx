@@ -5,14 +5,9 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 
-const LogoMark = () => (
-  <div className="grid grid-cols-2 grid-rows-2 gap-[2px] w-[18px] h-[18px]">
-    <div className="bg-brand-crimson w-2 h-2" />
-    <div className="bg-brand-blue w-2 h-2" />
-    <div className="bg-brand-teal w-2 h-2" />
-    <div className="bg-brand-yellow w-2 h-2" />
-  </div>
-);
+import Logo from './Logo';
+
+const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +50,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <Link href="#home" onClick={(e) => handleScroll(e, '#home')} className="flex items-center gap-3 relative z-50">
-            <LogoMark />
+            <Logo className="w-8 h-8" />
             <span className="font-syne font-bold text-xl tracking-tight text-white">Brandworks</span>
           </Link>
 
@@ -77,7 +72,7 @@ export default function Navbar() {
             <a 
               href="#contact" 
               onClick={(e) => handleScroll(e, '#contact')}
-              className="px-5 py-2.5 rounded-full border border-brand-crimson text-brand-crimson text-sm font-space-grotesk font-medium hover:bg-brand-crimson hover:text-white transition-all duration-300"
+              className="px-5 py-2.5 rounded-full border border-brand-red text-brand-red text-sm font-space-grotesk font-medium hover:bg-brand-red hover:text-white transition-all duration-300"
             >
               Get a Quote
             </a>
@@ -100,7 +95,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.3, ease: EASE }}
             className="fixed inset-0 z-40 md:hidden bg-brand-surface/95 backdrop-blur-xl pt-24 px-6 pb-6 flex flex-col"
           >
             <div className="flex flex-col gap-6 items-center w-full">
@@ -117,7 +112,7 @@ export default function Navbar() {
               <a 
                 href="#contact" 
                 onClick={(e) => handleScroll(e, '#contact')}
-                className="mt-6 w-full max-w-xs text-center px-6 py-4 rounded-full bg-brand-crimson text-white font-space-grotesk font-medium text-lg"
+                className="mt-6 w-full max-w-xs text-center px-6 py-4 rounded-full bg-brand-red text-white font-space-grotesk font-medium text-lg"
               >
                 Get a Quote
               </a>

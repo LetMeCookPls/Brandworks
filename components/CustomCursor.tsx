@@ -90,7 +90,7 @@ export default function CustomCursor() {
           width: isHovering ? (hoverText ? '64px' : '56px') : '36px',
           height: isHovering ? (hoverText ? '64px' : '56px') : '36px',
           border: isHovering ? '1px solid transparent' : '1px solid rgba(255,255,255,0.4)',
-          backgroundColor: isHovering ? (hoverText ? 'rgba(232, 23, 74, 0.9)' : 'rgba(232, 23, 74, 0.2)') : 'transparent',
+          backgroundColor: isHovering ? (hoverText ? 'rgba(244, 37, 37, 0.9)' : 'rgba(244, 37, 37, 0.2)') : 'transparent',
           color: 'white',
         }}
       >

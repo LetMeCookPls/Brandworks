@@ -3,6 +3,9 @@
 import { motion } from 'framer-motion';
 import SectionHeading from '../ui/SectionHeading';
 import GlassCard from '../ui/GlassCard';
+import Logo from '@/components/Logo';
+
+const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
 export default function About() {
   return (
@@ -15,7 +18,7 @@ export default function About() {
           initial={{ opacity: 0, x: -60 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.8, ease: EASE }}
         >
           <SectionHeading>About Brandworks</SectionHeading>
           
@@ -45,20 +48,16 @@ export default function About() {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
         >
           <div className="relative w-[340px] h-[340px] sm:w-[400px] sm:h-[400px] flex items-center justify-center">
             
-            {/* The 2x2 colored grid block */}
             <motion.div 
-              className="absolute z-0 transform rotate-6 grid grid-cols-2 grid-rows-2 gap-2"
-              animate={{ rotate: [6, 10, 6] }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute z-0 w-[240px] h-[240px] sm:w-[320px] sm:h-[320px]"
+              animate={{ y: [-8, 8, -8] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <div className="w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] bg-brand-crimson rounded-3xl" />
-              <div className="w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] bg-brand-blue rounded-3xl" />
-              <div className="w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] bg-brand-teal rounded-3xl" />
-              <div className="w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] bg-brand-yellow rounded-3xl" />
+              <Logo className="w-full h-full" />
             </motion.div>
 
             {/* Overlay Glass Card */}

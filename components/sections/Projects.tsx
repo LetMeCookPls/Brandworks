@@ -4,13 +4,15 @@ import { motion } from 'framer-motion';
 import SectionHeading from '../ui/SectionHeading';
 import Image from 'next/image';
 
+const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+
 const projects = [
-  { title: "Al-Hamra Mall Signage", category: "Signage", color: "bg-brand-crimson", size: "md:col-span-2 md:row-span-2", img: "https://picsum.photos/seed/p1/800/600" },
-  { title: "Nike Kuwait Store Fit-Out", category: "Installation", color: "bg-brand-blue", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p2/800/800" },
-  { title: "Boutique Interior, Salmiya", category: "Interiors", color: "bg-brand-teal", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p3/800/800" },
+  { title: "Al-Hamra Mall Signage", category: "Signage", color: "bg-brand-red", size: "md:col-span-2 md:row-span-2", img: "https://picsum.photos/seed/p1/800/600" },
+  { title: "Nike Kuwait Store Fit-Out", category: "Installation", color: "bg-brand-blue-light", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p2/800/800" },
+  { title: "Boutique Interior, Salmiya", category: "Interiors", color: "bg-brand-green", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p3/800/800" },
   { title: "Brand Identity — Diwan Co.", category: "Design", color: "bg-brand-yellow", size: "md:col-span-1 md:row-span-1 border-t-0", img: "https://picsum.photos/seed/p4/800/800" },
-  { title: "Airport Wayfinding System", category: "Signage", color: "bg-brand-crimson", size: "md:col-span-2 md:row-span-1", img: "https://picsum.photos/seed/p5/1200/600" },
-  { title: "Restaurant Interior, Avenues", category: "Interiors", color: "bg-brand-teal", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p6/800/800" },
+  { title: "Airport Wayfinding System", category: "Signage", color: "bg-brand-red", size: "md:col-span-2 md:row-span-1", img: "https://picsum.photos/seed/p5/1200/600" },
+  { title: "Restaurant Interior, Avenues", category: "Interiors", color: "bg-brand-blue-dark", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p6/800/800" },
 ];
 
 const containerVariants = {
@@ -23,7 +25,7 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
 
 export default function Projects() {
@@ -62,7 +64,7 @@ export default function Projects() {
               className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out"
             >
               <div className="flex flex-col gap-3">
-                <span className={`w-max px-3 py-1 text-xs font-space-grotesk font-bold text-brand-black uppercase tracking-wider rounded-full ${project.color}`}>
+                <span className={`w-max px-3 py-1 text-xs font-space-grotesk font-bold uppercase tracking-wider rounded-full ${project.color} ${project.color === 'bg-brand-yellow' ? 'text-black' : 'text-white'}`}>
                   {project.category}
                 </span>
                 <h3 className="font-syne font-bold text-2xl sm:text-3xl text-white">
