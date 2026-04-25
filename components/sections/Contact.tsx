@@ -124,6 +124,7 @@ export default function Contact() {
                   <option value="Installation">Shop Installation</option>
                   <option value="Interiors">Interior Design</option>
                   <option value="Design">Branding & Design</option>
+                  <option value="Others">Others</option>
                 </select>
               </div>
 

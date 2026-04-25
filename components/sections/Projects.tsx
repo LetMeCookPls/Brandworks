@@ -3,76 +3,242 @@
 import { motion } from 'framer-motion';
 import SectionHeading from '../ui/SectionHeading';
 import Image from 'next/image';
+import { useRef } from 'react';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
 const projects = [
-  { title: "Al-Hamra Mall Signage", category: "Signage", color: "bg-brand-red", size: "md:col-span-2 md:row-span-2", img: "https://picsum.photos/seed/p1/800/600" },
-  { title: "Nike Kuwait Store Fit-Out", category: "Installation", color: "bg-brand-blue-light", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p2/800/800" },
-  { title: "Boutique Interior, Salmiya", category: "Interiors", color: "bg-brand-green", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p3/800/800" },
-  { title: "Brand Identity — Diwan Co.", category: "Design", color: "bg-brand-yellow", size: "md:col-span-1 md:row-span-1 border-t-0", img: "https://picsum.photos/seed/p4/800/800" },
-  { title: "Airport Wayfinding System", category: "Signage", color: "bg-brand-red", size: "md:col-span-2 md:row-span-1", img: "https://picsum.photos/seed/p5/1200/600" },
-  { title: "Restaurant Interior, Avenues", category: "Interiors", color: "bg-brand-blue-dark", size: "md:col-span-1 md:row-span-1", img: "https://picsum.photos/seed/p6/800/800" },
+  {
+    title: "Louis Vuitton",
+    subtitle: "Scale-pattern arch pop-up",
+    category: "Mall Pop-Up",
+    tag: "Installation",
+    color: "bg-brand-yellow",
+    size: "md:col-span-2 md:row-span-2",
+    img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8",
+    accent: "#C9A84C",
+  },
+  {
+    title: "Dior",
+    subtitle: "Sculptural window display",
+    category: "Window Display",
+    tag: "Installation",
+    color: "bg-brand-blue-light",
+    size: "md:col-span-1 md:row-span-1",
+    img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64",
+    accent: "#2C7BE5",
+  },
+  {
+    title: "Valentino",
+    subtitle: "Beauty mall pop-up in Rosso",
+    category: "Mall Pop-Up",
+    tag: "Production",
+    color: "bg-brand-red",
+    size: "md:col-span-1 md:row-span-1",
+    img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da",
+    accent: "#E5302C",
+  },
+  {
+    title: "Tiffany & Co.",
+    subtitle: "Curved LED mall pavilion",
+    category: "Mall Pop-Up",
+    tag: "Installation",
+    color: "bg-brand-green",
+    size: "md:col-span-1 md:row-span-1",
+    img: "https://images.unsplash.com/photo-1573408301185-9519f94816f7",
+    accent: "#00A693",
+  },
+  {
+    title: "Shiseido",
+    subtitle: "Instore production & display",
+    category: "In-Store Stands",
+    tag: "Production",
+    color: "bg-brand-red",
+    size: "md:col-span-1 md:row-span-1",
+    img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348",
+    accent: "#E5302C",
+  },
+  {
+    title: "Van Cleef & Arpels",
+    subtitle: "Full facade storefront branding",
+    category: "Window Display",
+    tag: "Signage",
+    color: "bg-brand-blue-dark",
+    size: "md:col-span-2 md:row-span-1",
+    img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314",
+    accent: "#1A2B6D",
+  },
+  {
+    title: "MAC Cosmetics",
+    subtitle: "Full shop fit-out & LED signage",
+    category: "Shop Fit-Out",
+    tag: "Installation",
+    color: "bg-brand-yellow",
+    size: "md:col-span-2 md:row-span-1",
+    img: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2",
+    accent: "#C9A84C",
+  },
+  {
+    title: "Versace",
+    subtitle: "Event wall & exhibition branding",
+    category: "Events & Exhibitions",
+    tag: "Production",
+    color: "bg-brand-red",
+    size: "md:col-span-1 md:row-span-1",
+    img: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b",
+    accent: "#E5302C",
+  },
+  {
+    title: "Tory Burch",
+    subtitle: "Arabesque laser-cut window",
+    category: "Window Display",
+    tag: "Installation",
+    color: "bg-brand-blue-light",
+    size: "md:col-span-1 md:row-span-1",
+    img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d",
+    accent: "#2C7BE5",
+  },
 ];
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.08 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+  hidden: { opacity: 0, y: 36 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE } },
 };
+
+const tagColors: Record<string, string> = {
+  Installation: 'bg-brand-blue-light text-white',
+  Production: 'bg-brand-red text-white',
+  Signage: 'bg-brand-yellow text-black',
+};
+
+function ProjectCard({ project }: { project: typeof projects[number] }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  return (
+    <motion.div
+      ref={ref}
+      variants={itemVariants}
+      className={`group relative overflow-hidden rounded-2xl border border-white/10 cursor-pointer ${project.size}`}
+      data-cursor="view"
+    >
+      <Image
+        src={project.img}
+        alt={project.title}
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-110"
+        unoptimized={false}
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/30 transition-opacity duration-500 group-hover:opacity-90" />
+
+      <div
+        className="absolute bottom-0 left-0 w-full h-[3px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+        style={{ backgroundColor: project.accent }}
+      />
+
+      <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-7 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <span className={`px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full ${tagColors[project.tag] ?? 'bg-white/20 text-white'}`}>
+            {project.tag}
+          </span>
+          <span className="text-xs text-white/50 font-medium tracking-wide">
+            {project.category}
+          </span>
+        </div>
+
+        <h3
+          className="font-syne font-bold text-white leading-tight"
+          style={{ fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)' }}
+        >
+          {project.title}
+        </h3>
+        <p className="text-white/55 text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-400 delay-75 font-light tracking-wide">
+          {project.subtitle}
+        </p>
+      </div>
+
+      <div
+        className="absolute top-4 right-4 w-2.5 h-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ backgroundColor: project.accent }}
+      />
+    </motion.div>
+  );
+}
 
 export default function Projects() {
   return (
     <section id="projects" className="py-24 sm:py-32 relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <SectionHeading>Our Work</SectionHeading>
 
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-4 auto-rows-[280px] sm:auto-rows-[340px] gap-4 sm:gap-6 mt-12"
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
+        className="mt-6 mb-12 flex flex-wrap items-center gap-x-6 gap-y-2"
+      >
+        <span className="text-xs font-space-grotesk uppercase tracking-[0.2em] text-white/30">
+          Trusted by
+        </span>
+        {[
+          'Louis Vuitton', 'Dior', 'Valentino', 'Tiffany & Co.',
+          'Van Cleef & Arpels', 'Versace', 'MAC', 'Shiseido',
+          'Armani', 'Tory Burch', 'Audemars Piguet', 'Sephora',
+        ].map((brand) => (
+          <span
+            key={brand}
+            className="text-xs font-syne font-semibold text-white/40 hover:text-white/80 transition-colors duration-200 tracking-wide whitespace-nowrap"
+          >
+            {brand}
+          </span>
+        ))}
+      </motion.div>
+
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-4 auto-rows-[260px] sm:auto-rows-[320px] gap-4 sm:gap-5"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-40px" }}
       >
         {projects.map((project, idx) => (
-          <motion.div
-            key={idx}
-            variants={itemVariants}
-            whileHover="hover"
-            className={`group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 ${project.size}`}
-            data-cursor="view"
+          <ProjectCard key={idx} project={project} />
+        ))}
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: EASE, delay: 0.3 }}
+        className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10"
+      >
+        {[
+          { label: 'Window Displays', value: '150+' },
+          { label: 'Mall Pop-Ups', value: '80+' },
+          { label: 'Luxury Brands', value: '40+' },
+          { label: 'Years in Kuwait', value: '10+' },
+        ].map((stat) => (
+          <div
+            key={stat.label}
+            className="flex flex-col items-center justify-center py-7 bg-white/[0.03] hover:bg-white/[0.07] transition-colors duration-300"
           >
-            {/* Background Image */}
-            <Image
-              src={project.img}
-              alt={project.title}
-              fill
-              className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-105"
-            />
-            
-            {/* Gradient Overlay for legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-            
-            {/* Bottom Content Slide-Up */}
-            <motion.div 
-              className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out"
-            >
-              <div className="flex flex-col gap-3">
-                <span className={`w-max px-3 py-1 text-xs font-space-grotesk font-bold uppercase tracking-wider rounded-full ${project.color} ${project.color === 'bg-brand-yellow' ? 'text-black' : 'text-white'}`}>
-                  {project.category}
-                </span>
-                <h3 className="font-syne font-bold text-2xl sm:text-3xl text-white">
-                  {project.title}
-                </h3>
-              </div>
-            </motion.div>
-          </motion.div>
+            <span className="font-syne font-bold text-3xl sm:text-4xl text-white">
+              {stat.value}
+            </span>
+            <span className="text-xs text-white/40 mt-1 tracking-widest uppercase font-space-grotesk">
+              {stat.label}
+            </span>
+          </div>
         ))}
       </motion.div>
     </section>
