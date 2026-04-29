@@ -42,9 +42,11 @@ export default function Contact() {
                 <div className="flex items-start gap-4 text-gray-300">
                   <div className="mt-1 text-brand-red"><MapPin size={24} /></div>
                   <div>
-                    <h4 className="font-space-grotesk font-semibold text-white mb-1">Our Studio</h4>
+                    <h4 className="font-space-grotesk font-semibold text-white mb-1">Our Office</h4>
                     <p className="font-dm-sans text-sm leading-relaxed text-gray-400">
-                      Kuwait City,<br/>
+                      Office 21#, Mezzanine Floor,<br/>
+                      Al Ritaz Complex,<br/>
+                      Bin Khaldoun St., Hawally,<br/>
                       Kuwait
                     </p>
                   </div>
@@ -54,8 +56,11 @@ export default function Contact() {
                   <div className="mt-1 text-brand-blue-light"><Phone size={24} /></div>
                   <div>
                     <h4 className="font-space-grotesk font-semibold text-white mb-1">Phone</h4>
-                    <a href="tel:+96500000000" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
-                      +965 XXXX XXXX
+                    <a href="tel:+971559981420" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
+                      +971 55 998 1420
+                    </a> <br />
+                    <a href="tel:+96550727586" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
+                      +965 507 27586
                     </a>
                   </div>
                 </div>
@@ -64,8 +69,11 @@ export default function Contact() {
                   <div className="mt-1 text-brand-yellow"><Mail size={24} /></div>
                   <div>
                     <h4 className="font-space-grotesk font-semibold text-white mb-1">Email</h4>
-                    <a href="mailto:hello@brandworks.kw" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
-                      hello@brandworks.kw
+                    <a href="mailto:info@brandworkskwt.com" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
+                      info@brandworkskwt.com
+                    </a><br />
+                    <a href="mailto:mustafa@brandworkskwt.com" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
+                      mustafa@brandworkskwt.com
                     </a>
                   </div>
                 </div>
