@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
+import HoverSplitText from '@/components/HoverSplitText';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -96,21 +97,45 @@ export default function Hero() {
           <motion.div className="flex flex-col mb-6" variants={containerVariants}>
             <motion.h1
               className="font-syne font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-white m-0"
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0 }}
             >
-              WE BUILD
+              <HoverSplitText
+                text="WE BUILD"
+                staggerDelay={0.025}
+                duration={0.60}
+                style={{ color: 'inherit', fontFamily: 'inherit', letterSpacing: 'inherit' }}
+              />
             </motion.h1>
             <motion.h1
               className="font-syne font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-brand-red m-0"
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
             >
-              BRANDS.
+              <HoverSplitText
+                text="BRANDS."
+                staggerDelay={0.025}
+                duration={0.60}
+                style={{ color: 'inherit', fontFamily: 'inherit', letterSpacing: 'inherit' }}
+              />
             </motion.h1>
             <motion.h1
               className="font-syne font-bold text-3xl md:text-[44px] leading-tight text-gray-400 mt-2"
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.4 }}
             >
-              IN REAL LIFE.
+              <HoverSplitText
+                text="IN REAL LIFE."
+                staggerDelay={0.020}
+                duration={0.55}
+                style={{ color: 'inherit', fontFamily: 'inherit', letterSpacing: 'inherit' }}
+              />
             </motion.h1>
           </motion.div>
 

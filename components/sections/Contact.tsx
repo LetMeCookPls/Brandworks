@@ -171,9 +171,10 @@ export default function Contact() {
                   id="service" 
                   name="service"
                   required
+                  defaultValue=""
                   className="bg-brand-surface border border-white/10 rounded-lg px-4 py-3 font-dm-sans text-white focus:outline-none focus:border-brand-blue-light focus:ring-1 focus:ring-brand-blue-light transition-all appearance-none"
                 >
-                  <option value="" disabled selected>Select a service...</option>
+                  <option value="" disabled>Select a service...</option>
                   <option value="Signage">Signage</option>
                   <option value="Installation">Shop Installation</option>
                   <option value="Interiors">Interior Design</option>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Square, Store, Layout, Palette } from 'lucide-react';
 import SectionHeading from '../ui/SectionHeading';
 import GlassCard from '../ui/GlassCard';
+import HoverSplitText from '@/components/HoverSplitText';
 
 const services = [
   {
@@ -87,9 +88,13 @@ export default function Services() {
               </div>
               
               <div>
-                <h3 className="font-syne font-bold text-2xl text-white mb-3">
-                  {service.title}
-                </h3>
+                <HoverSplitText
+                  text={service.title}
+                  staggerDelay={0.022}
+                  duration={0.55}
+                  ease="power3.out"
+                  className="font-syne font-bold text-2xl text-white mb-3 block"
+                />
                 <p className="font-dm-sans text-gray-400 leading-relaxed">
                   {service.description}
                 </p>
