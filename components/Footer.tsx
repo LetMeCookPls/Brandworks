@@ -165,10 +165,10 @@ export default function Footer() {
             position: 'relative',
             zIndex: 10,
           }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-6 px-6 md:px-12 py-16 items-start"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:justify-between w-full gap-10 lg:gap-0 px-6 md:px-12 py-16 items-start"
         >
           {/* COLUMN 1: Address */}
-          <div className="lg:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <div style={{
               fontFamily: 'var(--font-space-grotesk), sans-serif',
               fontSize: '11px',
@@ -208,7 +208,7 @@ export default function Footer() {
           </div>
 
           {/* COLUMN 2: Phone */}
-          <div className="lg:col-span-3 flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <div style={{
               fontFamily: 'var(--font-space-grotesk), sans-serif',
               fontSize: '11px',
@@ -249,7 +249,7 @@ export default function Footer() {
           </div>
 
           {/* COLUMN 3: Email */}
-          <div className="lg:col-span-3 flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <div style={{
               fontFamily: 'var(--font-space-grotesk), sans-serif',
               fontSize: '11px',
@@ -290,33 +290,35 @@ export default function Footer() {
           </div>
 
           {/* COLUMN 4: Follow Us */}
-          <div className="lg:col-span-2 flex flex-col items-center sm:items-start text-center sm:text-left">
-            <div style={{
-              fontFamily: 'var(--font-space-grotesk), sans-serif',
-              fontSize: '11px',
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '0.12em',
-              color: 'rgba(255,255,255,0.38)',
-              marginBottom: '16px'
-            }}>Follow Us</div>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px',
-            }} className="hover:text-[#F42525] hover:translate-x-[3px] transition-all duration-200 text-[rgba(255,255,255,0.65)]">
-              <InstagramIcon />
-              <HoverSplitText text="Instagram" href="https://instagram.com/brandworkskw" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
-            </div>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px',
-            }} className="hover:text-[#2196E8] hover:translate-x-[3px] transition-all duration-200 text-[rgba(255,255,255,0.65)]">
-              <LinkedinIcon />
-              <HoverSplitText text="LinkedIn" href="https://linkedin.com/company/brandworks" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
-            </div>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px',
-            }} className="hover:text-[#0DC76A] hover:translate-x-[3px] transition-all duration-200 text-[rgba(255,255,255,0.65)]">
-              <WhatsAppIcon />
-              <HoverSplitText text="WhatsApp" href="https://wa.me/96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+          <div className="flex flex-col items-center sm:items-start">
+            <div className="flex flex-col items-center sm:items-start">
+              <div style={{
+                fontFamily: 'var(--font-space-grotesk), sans-serif',
+                fontSize: '11px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.12em',
+                color: 'rgba(255,255,255,0.38)',
+                marginBottom: '16px'
+              }}>Follow Us</div>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px',
+              }} className="hover:text-[#F42525] hover:translate-x-[3px] transition-all duration-200 text-[rgba(255,255,255,0.65)]">
+                <InstagramIcon />
+                <HoverSplitText text="Instagram" href="https://instagram.com/brandworkskw" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+              </div>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px',
+              }} className="hover:text-[#2196E8] hover:translate-x-[3px] transition-all duration-200 text-[rgba(255,255,255,0.65)]">
+                <LinkedinIcon />
+                <HoverSplitText text="LinkedIn" href="https://linkedin.com/company/brandworks" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+              </div>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px',
+              }} className="hover:text-[#0DC76A] hover:translate-x-[3px] transition-all duration-200 text-[rgba(255,255,255,0.65)]">
+                <WhatsAppIcon />
+                <HoverSplitText text="WhatsApp" href="https://wa.me/96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+              </div>
             </div>
           </div>
         </motion.div>
