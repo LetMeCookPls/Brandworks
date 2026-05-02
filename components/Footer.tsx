@@ -35,7 +35,7 @@ export default function Footer() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
       viewport={{ once: true, margin: '100px' }}
-      className="relative w-full overflow-hidden bg-[#050508] text-white"
+      className="relative w-full overflow-hidden bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between"
     >
       {/* VIDEO BACKGROUND */}
       <video
@@ -72,7 +72,7 @@ export default function Footer() {
         <div style={{
           position: 'relative',
           zIndex: 10,
-          paddingTop: '72px',
+          paddingTop: '160px',
           paddingBottom: '40px',
           textAlign: 'center',
           overflow: 'hidden',
@@ -80,7 +80,7 @@ export default function Footer() {
           {/* BRANDWORKS */}
           <div className="liquid-glass-text" style={{
             fontFamily: 'var(--font-bebas)',
-            fontSize: 'clamp(52px, 12vw, 190px)',
+            fontSize: 'clamp(72px, 16vw, 190px)',
             letterSpacing: '0.01em',
             lineHeight: 0.92,
             display: 'block',
@@ -91,7 +91,7 @@ export default function Footer() {
           {/* ADVERTISING CO. */}
           <div className="liquid-glass-text" style={{
             fontFamily: 'var(--font-bebas)',
-            fontSize: 'clamp(20px, 4vw, 62px)',
+            fontSize: 'clamp(26px, 5.5vw, 62px)',
             letterSpacing: '0.18em',
             marginTop: '-4px',
             display: 'block',
@@ -165,10 +165,10 @@ export default function Footer() {
             position: 'relative',
             zIndex: 10,
           }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-6 md:px-12 py-12 items-start"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-6 px-6 md:px-12 py-16 items-start"
         >
           {/* COLUMN 1: Address */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="lg:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left">
             <div style={{
               fontFamily: 'var(--font-space-grotesk), sans-serif',
               fontSize: '11px',
@@ -208,7 +208,7 @@ export default function Footer() {
           </div>
 
           {/* COLUMN 2: Phone */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="lg:col-span-3 flex flex-col items-center sm:items-start text-center sm:text-left">
             <div style={{
               fontFamily: 'var(--font-space-grotesk), sans-serif',
               fontSize: '11px',
@@ -249,7 +249,7 @@ export default function Footer() {
           </div>
 
           {/* COLUMN 3: Email */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="lg:col-span-3 flex flex-col items-center sm:items-start text-center sm:text-left">
             <div style={{
               fontFamily: 'var(--font-space-grotesk), sans-serif',
               fontSize: '11px',
@@ -290,7 +290,7 @@ export default function Footer() {
           </div>
 
           {/* COLUMN 4: Follow Us */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="lg:col-span-2 flex flex-col items-center sm:items-start text-center sm:text-left">
             <div style={{
               fontFamily: 'var(--font-space-grotesk), sans-serif',
               fontSize: '11px',

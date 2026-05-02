@@ -174,34 +174,67 @@ function ProjectCard({ project }: { project: typeof projects[number] }) {
   );
 }
 
+const brands = [
+  '/images/company_svgs/alpha_nero.svg',
+  '/images/company_svgs/altayer.svg',
+  '/images/company_svgs/brandoptions.svg',
+  '/images/company_svgs/impact.svg',
+  '/images/company_svgs/onerx.svg',
+  '/images/company_svgs/storemakers.svg',
+];
+
+const MarqueeCarousel = () => {
+  return (
+    <div className="mt-16 sm:mt-24">
+      <p className="text-base sm:text-lg text-center text-white/50 mb-8 font-space-grotesk uppercase tracking-[0.2em]">
+        Trusted by
+      </p>
+
+      <motion.div
+        className="relative overflow-hidden py-8 sm:py-12 bg-white/[0.02] border-y border-white/10"
+        style={{
+          maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
+        }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: EASE }}
+      >
+        <div className="flex w-full">
+          {[...Array(2)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="flex shrink-0 gap-16 sm:gap-24 pr-16 sm:pr-24"
+              animate={{ x: ["0%", "-100%"] }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              {brands.map((brand, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center justify-center flex-shrink-0 h-8 sm:h-10 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={brand} alt={`Brand ${idx}`} className="h-full w-auto object-contain" />
+                </div>
+              ))}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
 export default function Projects() {
   return (
     <section id="projects" className="py-24 sm:py-32 relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <SectionHeading>Our Work</SectionHeading>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
-        className="mt-6 mb-12 flex flex-wrap items-center gap-x-6 gap-y-2"
-      >
-        <span className="text-xs font-space-grotesk uppercase tracking-[0.2em] text-white/30">
-          Trusted by
-        </span>
-        {[
-          'Louis Vuitton', 'Dior', 'Valentino', 'Tiffany & Co.',
-          'Van Cleef & Arpels', 'Versace', 'MAC', 'Shiseido',
-          'Armani', 'Tory Burch', 'Audemars Piguet', 'Sephora',
-        ].map((brand) => (
-          <span
-            key={brand}
-            className="text-xs font-syne font-semibold text-white/40 hover:text-white/80 transition-colors duration-200 tracking-wide whitespace-nowrap"
-          >
-            {brand}
-          </span>
-        ))}
-      </motion.div>
 
       <motion.div
         className="grid grid-cols-1 md:grid-cols-4 auto-rows-[260px] sm:auto-rows-[320px] gap-4 sm:gap-5"
@@ -241,6 +274,8 @@ export default function Projects() {
           </div>
         ))}
       </motion.div>
+
+      <MarqueeCarousel />
     </section>
   );
 }

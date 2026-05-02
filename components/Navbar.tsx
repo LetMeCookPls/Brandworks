@@ -28,7 +28,7 @@ const WhatsAppIcon = () => (
 import HoverSplitText from '@/components/HoverSplitText'
 
 const navLinks = [
-  { label: 'Home',     href: '#hero',     hoverColor: '#F42525' },
+  { label: 'Home',     href: '#home',     hoverColor: '#F42525' },
   { label: 'About',    href: '#about',    hoverColor: '#2196E8' },
   { label: 'Services', href: '#services', hoverColor: '#0DC76A' },
   { label: 'Projects', href: '#projects', hoverColor: '#FFD700' },
@@ -68,19 +68,17 @@ export default function Navbar() {
     } else {
       setIsScrolled(false)
     }
+
+    // Hide if we've reached near the bottom (footer)
+    const threshold = typeof window !== 'undefined' && window.innerWidth < 768 ? 600 : 250
+    if (latest + window.innerHeight >= document.documentElement.scrollHeight - threshold) {
+      setHideForFooter(true)
+    } else {
+      setHideForFooter(false)
+    }
   })
 
-  // Hide on footer
-  useEffect(() => {
-    const footer = document.querySelector('footer')
-    if (!footer) return
-    const obs = new IntersectionObserver(
-      ([entry]) => setHideForFooter(entry.isIntersecting),
-      { threshold: 0.08 }
-    )
-    obs.observe(footer)
-    return () => obs.disconnect()
-  }, [])
+
 
   // Active section tracking
   useEffect(() => {
@@ -350,20 +348,6 @@ export default function Navbar() {
           >
             {/* Inner Content */}
             <div className="flex flex-col items-center w-full max-w-sm px-6">
-              {/* Logo block */}
-              <div className="flex flex-col items-center mb-12">
-                <div style={{ position: 'relative', width: 36, height: 36, marginBottom: '16px' }}>
-                  <div style={{ position: 'absolute', top: 0, right: 0, width: 14, height: 14, background: '#F42525' }} />
-                  <div style={{ position: 'absolute', top: 11, left: 8, width: 14, height: 14, background: '#2196E8' }} />
-                  <div style={{ position: 'absolute', top: 11, right: 0, width: 14, height: 14, background: '#0D35C4' }} />
-                  <div style={{ position: 'absolute', bottom: 0, left: 0, width: 14, height: 14, background: '#0DC76A' }} />
-                  <div style={{ position: 'absolute', bottom: 0, right: 0, width: 14, height: 14, background: '#FFD700' }} />
-                </div>
-                <span style={{ fontFamily: 'var(--font-bebas)', fontSize: '20px', letterSpacing: '0.06em', color: 'white' }}>
-                  BRANDWORKS
-                </span>
-              </div>
-
               {/* Links */}
               <motion.div 
                 className="flex flex-col items-center gap-6 mb-16"

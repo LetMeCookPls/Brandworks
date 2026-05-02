@@ -20,6 +20,12 @@ html, body {
   color: #ffffff;
   scroll-behavior: smooth;
   cursor: none; /* Custom cursor */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
 
 @layer components {
@@ -50,8 +56,8 @@ html, body {
 
 .liquid-glass-text {
   color: transparent;
-  -webkit-text-stroke: 2px rgba(255,255,255,0.92);
-  text-stroke: 2px rgba(255,255,255,0.92);
+  -webkit-text-stroke: max(1px, 0.1vw) rgba(255,255,255,0.92);
+  text-stroke: max(1px, 0.1vw) rgba(255,255,255,0.92);
   background: linear-gradient(
     135deg,
     rgba(255,255,255,1.00)  0%,

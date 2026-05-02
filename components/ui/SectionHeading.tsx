@@ -14,7 +14,7 @@ export default function SectionHeading({ children, className = '' }: { children:
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, ease: EASE }}
-      className={`font-syne font-bold text-4xl md:text-5xl text-white mb-12 flex items-center gap-4 ${className}`}
+      className={`font-syne flex items-center gap-4 mb-12 ${className}`}
     >
       <span className="w-8 h-[2px] bg-brand-red"></span>
       <HoverSplitText
@@ -24,10 +24,10 @@ export default function SectionHeading({ children, className = '' }: { children:
         ease="power3.out"
         style={{
           fontFamily: 'var(--font-syne)',
-          fontSize: 'clamp(36px, 5vw, 64px)',
-          fontWeight: 800,
+          fontSize: 'clamp(30px, 4vw, 44px)',
+          fontWeight: 500,
           color: 'white',
-          letterSpacing: '-0.02em',
+          letterSpacing: '0em',
         }}
       />
     </motion.h2>
