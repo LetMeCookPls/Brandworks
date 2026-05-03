@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, animate } from 'framer-motion';
 import SectionHeading from '../ui/SectionHeading';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -175,15 +175,74 @@ function ProjectCard({ project }: { project: typeof projects[number] }) {
 }
 
 const brands = [
+  '/images/company_svgs/abra.svg',
+  '/images/company_svgs/acerta.svg',
+  '/images/company_svgs/allure_designs.svg',
   '/images/company_svgs/alpha_nero.svg',
+  '/images/company_svgs/altavia.svg',
   '/images/company_svgs/altayer.svg',
+  '/images/company_svgs/art_decor.svg',
   '/images/company_svgs/brandoptions.svg',
+  '/images/company_svgs/chalhoub_group.svg',
+  '/images/company_svgs/chryseks.svg',
+  '/images/company_svgs/edge_global.svg',
+  '/images/company_svgs/hemlock.svg',
+  '/images/company_svgs/hmy.svg',
   '/images/company_svgs/impact.svg',
+  '/images/company_svgs/mb.svg',
+  '/images/company_svgs/meisterwek.svg',
   '/images/company_svgs/onerx.svg',
+  '/images/company_svgs/pardgroup.svg',
+  '/images/company_svgs/roots.svg',
   '/images/company_svgs/storemakers.svg',
+  '/images/company_svgs/the_collective.svg',
+  '/images/company_svgs/tph.svg',
+  '/images/company_svgs/tricolor.svg',
+  '/images/company_svgs/visual_display.svg',
+  '/images/company_svgs/welldone.svg',
 ];
 
 const MarqueeCarousel = () => {
+  const x = useMotionValue(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const animRef = useRef<ReturnType<typeof animate> | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Duplicated brand list for seamless infinite loop
+  const track = [...brands, ...brands];
+
+  const startMarquee = useCallback((fromX: number) => {
+    animRef.current?.stop();
+    if (!trackRef.current) return;
+
+    const halfWidth = trackRef.current.scrollWidth / 2;
+    if (!halfWidth) return;
+
+    // Normalise into [-halfWidth, 0] so the loop is seamless
+    let start = fromX % halfWidth;
+    if (start > 0) start -= halfWidth;
+    if (start < -halfWidth) start = 0;
+    x.set(start);
+
+    // Remaining distance proportional to full 25s duration
+    const remaining = halfWidth + start; // dist from current to -halfWidth
+    const segmentDuration = (remaining / halfWidth) * 25;
+
+    animRef.current = animate(x, -halfWidth, {
+      duration: segmentDuration,
+      ease: 'linear',
+      onComplete: () => startMarquee(0),
+    });
+  }, [x]);
+
+  useEffect(() => {
+    const t = setTimeout(() => startMarquee(0), 80);
+    return () => {
+      clearTimeout(t);
+      animRef.current?.stop();
+    };
+  }, [startMarquee]);
+
   return (
     <div className="mt-16 sm:mt-24">
       <p className="text-base sm:text-lg text-center text-white/50 mb-8 font-space-grotesk uppercase tracking-[0.2em]">
@@ -194,37 +253,45 @@ const MarqueeCarousel = () => {
         className="relative overflow-hidden py-8 sm:py-12 bg-white/[0.02] border-y border-white/10"
         style={{
           maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
+          WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+          cursor: isDragging ? 'grabbing' : 'grab',
         }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: EASE }}
       >
-        <div className="flex w-full">
-          {[...Array(2)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="flex shrink-0 gap-16 sm:gap-24 pr-16 sm:pr-24"
-              animate={{ x: ["0%", "-100%"] }}
-              transition={{
-                duration: 25,
-                repeat: Infinity,
-                ease: "linear",
-              }}
+        <motion.div
+          ref={trackRef}
+          style={{ x, display: 'flex', gap: '4rem' }}
+          drag="x"
+          dragConstraints={{ left: -100000, right: 100000 }}
+          dragElastic={0}
+          dragMomentum={false}
+          onDragStart={() => {
+            animRef.current?.stop();
+            setIsDragging(true);
+          }}
+          onDragEnd={() => {
+            setIsDragging(false);
+            startMarquee(x.get());
+          }}
+        >
+          {track.map((brand, idx) => (
+            <div
+              key={idx}
+              className="flex items-center justify-center flex-shrink-0 h-8 sm:h-10 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300"
             >
-              {brands.map((brand, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center justify-center flex-shrink-0 h-8 sm:h-10 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={brand} alt={`Brand ${idx}`} className="h-full w-auto object-contain" />
-                </div>
-              ))}
-            </motion.div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={brand}
+                alt={`Brand ${idx}`}
+                className="h-full w-auto object-contain pointer-events-none select-none"
+                draggable={false}
+              />
+            </div>
           ))}
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
