@@ -28,7 +28,7 @@ const VIDEO_URL =
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-20">
+    <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-20 bg-brand-black">
 
       {/* ── Video Background ───────────────────────────────────────── */}
       <video
