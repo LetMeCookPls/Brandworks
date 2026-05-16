@@ -5,6 +5,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import HoverSplitText from '@/components/HoverSplitText';
 
+
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
 const containerVariants = {
@@ -23,66 +24,10 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
 
-const VIDEO_URL =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_024928_1efd0b0d-6c02-45a8-8847-1030900c4f63.mp4';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-20 bg-brand-black">
-
-      {/* ── Video Background ───────────────────────────────────────── */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        src={VIDEO_URL}
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-        style={{ opacity: 0.55 }}
-      />
-
-      {/* ── Blend / vignette layers ────────────────────────────────── */}
-      {/* Radial vignette – darkens edges */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 30%, #0D0D0F 100%)',
-        }}
-      />
-      {/* Left-side gradient so text stays legible */}
-      <div
-        className="absolute inset-0 z-[2] pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to right, #0D0D0F 0%, rgba(13,13,15,0.80) 40%, rgba(13,13,15,0.30) 70%, transparent 100%)',
-        }}
-      />
-      {/* Bottom fade to seamlessly transition into the next section */}
-      <div
-        className="absolute bottom-0 left-0 right-0 z-[2] h-48 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to top, #0D0D0F 0%, transparent 100%)',
-        }}
-      />
-      {/* Top fade for nav blend */}
-      <div
-        className="absolute top-0 left-0 right-0 z-[2] h-24 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to bottom, #0D0D0F 0%, transparent 100%)',
-        }}
-      />
-      {/* Subtle brand-red accent tint – bottom-left corner */}
-      <div
-        className="absolute bottom-0 left-0 z-[2] w-[600px] h-[300px] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse at bottom left, rgba(244,37,37,0.12) 0%, transparent 70%)',
-        }}
-      />
+    <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-20 bg-transparent">
 
       {/* ── Content ────────────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
