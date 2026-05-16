@@ -307,3 +307,157 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 @media (hover: none) {
   .hover-split-text-wrap { pointer-events: none; }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   STATS CARDS — UIverse "outer glow border + animated dot" style
+   ───────────────────────────────────────────────────────────── */
+
+/* Outer wrapper — gradient border ring only (not a background fill) */
+.stats-outer {
+  position: relative;
+  border-radius: 10px;
+  padding: 1px;
+  background: transparent;
+}
+
+/* Gradient border via mask — only the 1px ring is coloured */
+.stats-outer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  padding: 1px;
+  background: radial-gradient(circle 230px at 0% 0%, rgba(255,255,255,0.55), rgba(255,255,255,0.05));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Glowing dot that orbits the card border */
+.stats-dot {
+  width: 5px;
+  aspect-ratio: 1;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255,255,255,0.4);
+  border-radius: 100px;
+  z-index: 2;
+  right: 10%;
+  top: 10%;
+  animation: statsMoveDot 6s linear infinite;
+}
+
+@keyframes statsMoveDot {
+  0%,  100% { top: 10%;               right: 10%;               }
+  25%        { top: 10%;               right: calc(100% - 35px); }
+  50%        { top: calc(100% - 30px); right: calc(100% - 35px); }
+  75%        { top: calc(100% - 30px); right: 10%;               }
+}
+
+/* Inner card surface — fully transparent */
+.stats-card {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 28px 16px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+
+.stats-outer:hover .stats-card {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Light ray sweep */
+.stats-ray {
+  width: 180px;
+  height: 40px;
+  border-radius: 100px;
+  position: absolute;
+  background-color: #c7c7c7;
+  opacity: 0.25;
+  box-shadow: 0 0 50px #fff;
+  filter: blur(10px);
+  transform-origin: 10%;
+  top: 0;
+  left: 0;
+  transform: rotate(40deg);
+  pointer-events: none;
+}
+
+/* Shared line base */
+.stats-line {
+  position: absolute;
+  background-color: #2c2c2c;
+  pointer-events: none;
+}
+
+/* Horizontal lines */
+.stats-topl,
+.stats-bottoml {
+  width: 100%;
+  height: 1px;
+}
+.stats-topl {
+  top: 10%;
+  background: linear-gradient(90deg, #888888 30%, #1d1f1f 70%);
+}
+.stats-bottoml {
+  bottom: 10%;
+}
+
+/* Vertical lines */
+.stats-leftl,
+.stats-rightl {
+  left: auto;
+  width: 1px;
+  height: 100%;
+  top: 0;
+}
+.stats-leftl {
+  left: 10%;
+  background: linear-gradient(180deg, #747474 30%, #222424 70%);
+}
+.stats-rightl {
+  right: 10%;
+}
+
+/* Stat value — large bold number */
+.stats-value {
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  background: linear-gradient(45deg, #888888 4%, #ffffff, #666666);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+}
+
+/* Stat label — small uppercase subtitle */
+.stats-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}

@@ -315,29 +315,35 @@ export default function Projects() {
         ))}
       </motion.div>
 
+      {/* ── Stats Bar ── UIverse card style ──────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: EASE, delay: 0.3 }}
-        className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10"
+        className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4"
       >
         {[
           { label: 'Window Displays', value: '150+' },
-          { label: 'Mall Pop-Ups', value: '80+' },
-          { label: 'Luxury Brands', value: '40+' },
-          { label: 'Years in Kuwait', value: '10+' },
+          { label: 'Mall Pop-Ups',    value: '80+'  },
+          { label: 'Luxury Brands',   value: '40+'  },
+          { label: 'Years in Kuwait', value: '10+'  },
         ].map((stat) => (
-          <div
-            key={stat.label}
-            className="flex flex-col items-center justify-center py-7 bg-white/[0.03] hover:bg-white/[0.07] transition-colors duration-300"
-          >
-            <span className="font-syne font-bold text-3xl sm:text-4xl text-white">
-              {stat.value}
-            </span>
-            <span className="text-xs text-white/40 mt-1 tracking-widest uppercase font-space-grotesk">
-              {stat.label}
-            </span>
+          <div key={stat.label} className="stats-outer">
+            {/* animated glowing dot */}
+            <div className="stats-dot" />
+            <div className="stats-card">
+              {/* light ray */}
+              <div className="stats-ray" />
+              {/* corner accent lines */}
+              <div className="stats-line stats-topl" />
+              <div className="stats-line stats-bottoml" />
+              <div className="stats-line stats-leftl" />
+              <div className="stats-line stats-rightl" />
+              {/* content */}
+              <span className="stats-value font-syne">{stat.value}</span>
+              <span className="stats-label font-space-grotesk">{stat.label}</span>
+            </div>
           </div>
         ))}
       </motion.div>
