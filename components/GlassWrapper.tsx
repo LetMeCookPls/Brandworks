@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import LiquidGlass from 'liquid-glass-react'
+import { CSSProperties } from 'react'
 import { GLASS_CONFIG } from '@/lib/liquidGlassConfig'
 
 interface GlassWrapperProps {
@@ -9,23 +8,12 @@ interface GlassWrapperProps {
   cornerRadius?: number
   padding?: string
   className?: string
-  style?: React.CSSProperties
+  style?: CSSProperties
   onClick?: () => void
   overLight?: boolean
   variant?: 'navbar' | 'card' | 'button' | 'pill' | 'mobile' | 'stats' | 'project'
   mouseContainer?: React.RefObject<HTMLElement> | null
   blurAmount?: number
-}
-
-// Detect if browser supports feDisplacementMap backdrop properly
-function useSupportsLiquidGlass() {
-  const [supported, setSupported] = useState(true)
-  useEffect(() => {
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-    const isFirefox = navigator.userAgent.toLowerCase().includes('firefox')
-    if (isSafari || isFirefox) setSupported(false)
-  }, [])
-  return supported
 }
 
 export default function GlassWrapper({
@@ -36,45 +24,32 @@ export default function GlassWrapper({
   style = {},
   onClick,
   overLight = false,
-  variant,
-  mouseContainer,
   blurAmount,
 }: GlassWrapperProps) {
-  const supported = useSupportsLiquidGlass()
+  // Derive blur from blurAmount (0–1 scale → px) or fall back to GLASS_CONFIG default
+  const resolvedBlur = blurAmount !== undefined ? blurAmount : GLASS_CONFIG.blurAmount
+  const blurPx = resolvedBlur > 0 ? `blur(${resolvedBlur * 40}px)` : 'blur(0px)'
 
-  // Safari/Firefox fallback — clean backdrop blur
-  if (!supported) {
-    return (
-      <div 
-        className={`glass-fallback ${className}`}
-        onClick={onClick}
-        style={{
-          ...style,
-          borderRadius: cornerRadius,
-          padding,
-          background: overLight ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.2)',
-          backdropFilter: blurAmount ? `blur(${blurAmount * 100}px)` : 'blur(12px)',
-          WebkitBackdropFilter: blurAmount ? `blur(${blurAmount * 100}px)` : 'blur(12px)',
-          border: '1px solid rgba(255,255,255,0.1)',
-        }}
-      >
-        {children}
-      </div>
-    )
+  const glassStyle: CSSProperties = {
+    borderRadius: cornerRadius,
+    padding,
+    background: overLight
+      ? 'rgba(255,255,255,0.08)'
+      : 'rgba(255,255,255,0.04)',
+    backdropFilter: blurPx,
+    WebkitBackdropFilter: blurPx,
+    border: '1px solid rgba(255,255,255,0.12)',
+    boxShadow: '0 4px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1)',
+    ...style,
   }
 
   return (
-    <LiquidGlass
-      {...GLASS_CONFIG}
-      cornerRadius={cornerRadius}
-      padding={padding}
-      className={className}
-      style={style}
+    <div
+      className={`glass-wrapper ${className}`}
+      style={glassStyle}
       onClick={onClick}
-      mouseContainer={mouseContainer}
-      blurAmount={blurAmount !== undefined ? blurAmount : GLASS_CONFIG.blurAmount}
     >
       {children}
-    </LiquidGlass>
+    </div>
   )
 }
