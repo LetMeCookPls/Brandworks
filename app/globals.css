@@ -461,3 +461,362 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   z-index: 1;
   text-align: center;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LUXURY EDITORIAL GALLERY  —  "Our Works" section
+   ─────────────────────────────────────────────────────────────────────────
+   Grid tokens
+     Container max-width : 1440 px
+     Outer margins       : 64 px  (left + right)
+     Column count        : 12
+     Gutter              : 24 px  (between all columns)
+     Vertical rhythm     : 24 px  base unit
+     Card border-radius  : 20 px  (consistent everywhere)
+   ─────────────────────────────────────────────────────────────────────────
+   Three-zone editorial layout
+     LEFT  col  = 3 / 12  →  25%  (3 stacked side cards)
+     CENTER col = 6 / 12  →  50%  (1 dominant hero card)
+     RIGHT  col = 3 / 12  →  25%  (3 stacked side cards)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Outer section wrapper ────────────────────────────────────────────────── */
+.projects-section-outer {
+  /* No padding — pin zone and below-fold handle their own spacing */
+}
+
+/* ── Scroll-pin zone — 280 vh tall, scroll progress drives animation ─────── */
+.scroll-pin-zone {
+  position: relative;
+  height: 280vh;           /* 100vh visible + 180vh scroll headroom */
+}
+
+/* ── Sticky frame — pins at top:0 while parent scrolls ───────────────────── */
+.scroll-pin-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;           /* always fills the viewport */
+  overflow: hidden;        /* clips hero overflow as it scales past bounds */
+  display: flex;
+  align-items: center;     /* vertically centre the editorial grid */
+}
+
+/* ── Container — max 1440, centred, 64 px outer margins ─────────────────── */
+.projects-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 64px;
+  padding-right: 64px;
+}
+
+/* ── Below-fold: stats + marquee — normal flow after pin zone ────────────── */
+.projects-below-fold {
+  padding-top: calc(24px * 4);    /* 96px — 4× rhythm */
+  padding-bottom: calc(24px * 5); /* 120px */
+}
+
+
+/* ── Section header ───────────────────────────────────────────────────────── */
+.projects-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: calc(24px * 2);   /* 48px — 2× rhythm */
+}
+
+.projects-subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.38);
+  max-width: 38ch;
+  text-align: right;
+  line-height: 1.6;
+}
+
+/* ── Editorial grid — strict 12-col via CSS grid ──────────────────────────── */
+.editorial-grid {
+  display: grid;
+  /*
+   * 12 columns at 24 px gutters:
+   *   3-col left  | 24 px gap | 6-col hero  | 24 px gap | 3-col right
+   * We encode as three named tracks:
+   *   left  = 3fr, hero = 6fr, right = 3fr
+   * with column-gap = 24 px.
+   */
+  grid-template-columns: 3fr 6fr 3fr;
+  column-gap: 24px;
+  /* 'center' vertically aligns the whole grid, creating the staggered step effect 
+     because the columns have different internal heights. */
+  align-items: center;
+  /* IMPORTANT: allow overflow so the hero card can scale beyond grid bounds.
+     The sticky parent's overflow:hidden provides the actual clip boundary. */
+  overflow: visible;
+  width: 100%;
+}
+
+/* ── Column wrappers ──────────────────────────────────────────────────────── */
+.editorial-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;   /* uniform 24 px vertical gutter — matches horizontal */
+  min-width: 0;
+}
+
+.editorial-col--hero {
+  /* Hero takes 6fr — perfectly centred between identical margins.
+     z-index ensures it renders above side columns when scaling. */
+  position: relative;
+  z-index: 10;
+}
+
+/* ── Side card ────────────────────────────────────────────────────────────── */
+.side-card {
+  /* Height is driven by the aspect-ratio variant class below.
+     flex: none prevents the flex container from overriding the aspect-ratio. */
+  flex: none;
+  width: 100%;           /* fill the column track */
+  border-radius: 20px;   /* consistent 20 px radius everywhere */
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  background: var(--brand-surface);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 80,  80,  0.06),
+    0 0 0 1.0px rgba(80,  160, 255, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.28),
+    0 2px 8px  rgba(0, 0, 0, 0.18);
+  transition:
+    box-shadow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.side-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 80,  80,  0.12),
+    0 0 0 1.5px rgba(80,  160, 255, 0.08),
+    0 16px 48px rgba(0, 0, 0, 0.36),
+    0 4px 16px  rgba(0, 0, 0, 0.22);
+}
+
+/* ── Aspect-ratio variants ───────────────────────────────────────────────────────
+   Portrait  (3:4)  — tall card, placed at the TOP of each side column.
+   Landscape (16:9) — wide card, placed at the BOTTOM of each side column.
+   Together they create the asymmetric stacking seen in the reference image.
+   The column flex-direction:column + gap:24px handles spacing automatically.
+──────────────────────────────────────────────────────────────────────── */
+.side-card--portrait  { aspect-ratio: 3 / 4;  }
+.side-card--landscape { aspect-ratio: 16 / 9; }
+
+/* Image wrapper — takes full card space */
+.side-card__img-wrap {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Override Next Image fill to respect radius */
+.side-card img {
+  border-radius: 20px;
+}
+
+/* Image zoom on hover */
+.side-card__img {
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.side-card:hover .side-card__img {
+  transform: scale(1.08);
+}
+
+/* ── Hero card ────────────────────────────────────────────────────────────── */
+.hero-card {
+  width: 100%;
+  /* Explicit wide aspect ratio to match the reference image */
+  aspect-ratio: 2 / 1;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: var(--brand-surface);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 80,  80,  0.08),
+    0 0 0 1.0px rgba(80,  160, 255, 0.06),
+    0 0 0 2.0px rgba(80,  200, 120, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 24px 64px rgba(0, 0, 0, 0.42),
+    0 8px  24px rgba(0, 0, 0, 0.28);
+  transition:
+    box-shadow 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: chromaticPulse 4s ease-in-out infinite;
+}
+
+.hero-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 80,  80,  0.16),
+    0 0 0 1.5px rgba(80,  160, 255, 0.12),
+    0 0 0 2.5px rgba(80,  200, 120, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 32px 80px rgba(0, 0, 0, 0.50),
+    0 12px 32px rgba(0, 0, 0, 0.34);
+}
+
+/* ── Stats grid ───────────────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;                       /* matches editorial gutters exactly */
+  margin-top: calc(24px * 2);     /* 48 px — 2× rhythm below gallery */
+}
+
+/* ── Hero carousel — progress bar full width so scaleX 0→1 covers the card ── */
+.hero-card [class*="absolute top-0"] {
+  width: 100%;
+}
+
+/* ── Hero dot indicators ──────────────────────────────────────────────────── */
+.hero-dot {
+  display: block;
+  padding: 0;
+  outline: none;
+  flex-shrink: 0;
+}
+.hero-dot:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.5);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+/* ── Hero arrow buttons ───────────────────────────────────────────────────── */
+.hero-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    background   0.25s ease,
+    border-color 0.25s ease,
+    color        0.25s ease,
+    transform    0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hero-arrow:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.35);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+.hero-arrow:active {
+  transform: scale(0.95);
+}
+.hero-arrow:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.5);
+  outline-offset: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Large desktops (≤ 1280px): tighten outer margins slightly ────────────── */
+@media (max-width: 1280px) {
+  .projects-container {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+/* ── Medium desktops (≤ 1024px): switch to 2-col + hero ──────────────── */
+@media (max-width: 1024px) {
+  .projects-container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .editorial-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .editorial-col--left  { grid-column: 1; grid-row: 1; }
+  .editorial-col--hero  { grid-column: 2; grid-row: 1 / span 2; }
+  .editorial-col--right { grid-column: 1; grid-row: 2; }
+
+  .hero-card { min-height: 520px; }
+}
+
+/* ── Tablets (≤ 768px): disable sticky, restore single-column normal flow ─── */
+@media (max-width: 768px) {
+  /* Collapse the 280vh scroll zone — no scroll effect on mobile */
+  .scroll-pin-zone {
+    height: auto;
+  }
+
+  /* Un-stick the frame on mobile */
+  .scroll-pin-sticky {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    padding-top: calc(24px * 4);
+    padding-bottom: calc(24px * 2);
+  }
+
+  .projects-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .projects-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .projects-subtitle { text-align: left; max-width: 100%; }
+
+  .editorial-grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    row-gap: 16px;
+  }
+
+  .editorial-col {
+    gap: 16px;
+  }
+
+  .editorial-col--left  { order: 2; }
+  .editorial-col--hero  { order: 1; }
+  .editorial-col--right { order: 3; }
+
+  .hero-card { min-height: 420px; height: 420px; }
+
+  .side-card { min-height: 200px; }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .projects-below-fold {
+    padding-top: 48px;
+    padding-bottom: 80px;
+  }
+}
+
+/* ── Mobile (≤ 480px) ────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .projects-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .hero-card { min-height: 340px; height: 340px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}

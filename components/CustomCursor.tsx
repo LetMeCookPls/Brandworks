@@ -8,7 +8,6 @@ export default function CustomCursor() {
 
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [hoverText, setHoverText] = useState('');
 
   // Mouse positions
   const mouse = useRef({ x: 0, y: 0 });
@@ -40,19 +39,12 @@ export default function CustomCursor() {
       const clickableRegex = /a|button|input|textarea|select/i;
       
       // Check if clicking close to interactive elements 
-      // or cards explicitly marking themselves for hover
       const interactiveEl = target.closest('a, button, input, textarea, select');
-      const viewableEl = target.closest('[data-cursor="view"]');
 
-      if (viewableEl) {
+      if (interactiveEl) {
         setIsHovering(true);
-        setHoverText('VIEW');
-      } else if (interactiveEl) {
-        setIsHovering(true);
-        setHoverText('');
       } else {
         setIsHovering(false);
-        setHoverText('');
       }
     };
 
@@ -85,25 +77,21 @@ export default function CustomCursor() {
     <>
       <div 
         ref={ringRef}
-        className={`fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center font-space-grotesk text-[10px] font-bold transition-all duration-300 ease-out`}
+        className={`fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center transition-all duration-300 ease-out`}
         style={{
-          width: isHovering ? (hoverText ? '64px' : '56px') : '36px',
-          height: isHovering ? (hoverText ? '64px' : '56px') : '36px',
+          width: isHovering ? '56px' : '36px',
+          height: isHovering ? '56px' : '36px',
           border: isHovering ? '1px solid transparent' : '1px solid rgba(255,255,255,0.4)',
-          backgroundColor: isHovering ? (hoverText ? 'rgba(244, 37, 37, 0.9)' : 'rgba(244, 37, 37, 0.2)') : 'transparent',
-          color: 'white',
+          backgroundColor: isHovering ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+          backdropFilter: isHovering ? 'blur(2px)' : 'none',
         }}
-      >
-        <span className="opacity-100 mix-blend-normal z-10 transition-opacity duration-300">
-          {hoverText}
-        </span>
-      </div>
+      />
       <div
         ref={dotRef}
         className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[10000]"
         style={{
           transition: 'opacity 0.2s ease',
-          opacity: isHovering && hoverText ? 0 : 1
+          opacity: 1
         }}
       />
     </>

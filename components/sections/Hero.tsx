@@ -92,7 +92,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div className="flex flex-wrap gap-6 items-center" variants={itemVariants}>
-            <a href="#projects" className="group relative block" data-cursor="view">
+            <a href="#projects" className="group relative block">
               <GlassCard hoverable className="px-8 py-4 bg-white/10 hover:bg-white/15 border-white/20">
                 <span className="font-space-grotesk font-semibold text-white tracking-wide group-hover:text-brand-red transition-colors">
                   See Our Work
