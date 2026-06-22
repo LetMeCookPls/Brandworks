@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+
 /**
  * VideoBackground
  * ---------------
@@ -17,11 +19,20 @@ const VIDEO_URL =
   'https://res.cloudinary.com/dehtmwxwn/video/upload/v1778652731/14081587_1920_1080_60fps_qgkow1.mp4';
 
 export default function VideoBackground() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.2;
+    }
+  }, []);
+
   return (
     <>
       {/* ── Looping video ── */}
       <video
-        className="fixed inset-0 w-full h-full object-cover pointer-events-none"
+        ref={videoRef}
+        className="fixed inset-0 w-full h-full object-cover pointer-events-none opacity-70"
         style={{ zIndex: -20 }}
         src={VIDEO_URL}
         autoPlay

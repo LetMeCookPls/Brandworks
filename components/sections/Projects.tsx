@@ -43,7 +43,7 @@ const leftCards: CardData[] = [
     subtitle: 'Sculptural window display',
     category: 'Window Display',
     tag: 'Installation',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    img: '/images/work_images/Qwe1.jpg',
     accent: '#2C7BE5',
     variant: 'portrait',
   },
@@ -53,7 +53,7 @@ const leftCards: CardData[] = [
     subtitle: 'Beauty mall pop-up in Rosso',
     category: 'Mall Pop-Up',
     tag: 'Production',
-    img: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80',
+    img: '/images/work_images/Qwe2.jpg',
     accent: '#E5302C',
     variant: 'landscape',
   },
@@ -67,7 +67,7 @@ const heroSlides = [
     subtitle: 'Scale-pattern arch pop-up installation in The Avenues Mall',
     category: 'Mall Pop-Up',
     tag: 'Installation',
-    img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=85',
+    img: '/images/work_images/Qwe3.jpg',
     accent: '#C9A84C',
     year: '2024',
   },
@@ -77,7 +77,7 @@ const heroSlides = [
     subtitle: 'Full shop fit-out with floor-to-ceiling LED signage system',
     category: 'Shop Fit-Out',
     tag: 'Installation',
-    img: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1200&q=85',
+    img: '/images/work_images/Qwe4.jpg',
     accent: '#E5302C',
     year: '2024',
   },
@@ -87,7 +87,7 @@ const heroSlides = [
     subtitle: 'Arabesque laser-cut window display in 360 Mall',
     category: 'Window Display',
     tag: 'Installation',
-    img: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=85',
+    img: '/images/work_images/Qwe5.jpg',
     accent: '#2C7BE5',
     year: '2023',
   },
@@ -97,9 +97,69 @@ const heroSlides = [
     subtitle: 'Bespoke full-facade storefront branding & illuminated signage',
     category: 'Window Display',
     tag: 'Signage',
-    img: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=1200&q=85',
+    img: '/images/work_images/Qwe6.jpg',
     accent: '#C9A84C',
     year: '2023',
+  },
+  {
+    id: 'chanel',
+    title: 'Chanel',
+    subtitle: 'Exclusive holiday season boutique installation',
+    category: 'Boutique Display',
+    tag: 'Installation',
+    img: '/images/work_images/Qwe11.jpg',
+    accent: '#000000',
+    year: '2024',
+  },
+  {
+    id: 'hermes',
+    title: 'Hermès',
+    subtitle: 'Artisanal window displays featuring handcrafted elements',
+    category: 'Window Display',
+    tag: 'Production',
+    img: '/images/work_images/Qwe12.jpg',
+    accent: '#F37021',
+    year: '2023',
+  },
+  {
+    id: 'gucci',
+    title: 'Gucci',
+    subtitle: 'Immersive pop-up space for the new collection launch',
+    category: 'Mall Pop-Up',
+    tag: 'Installation',
+    img: '/images/work_images/Qwe13.jpg',
+    accent: '#105B3A',
+    year: '2024',
+  },
+  {
+    id: 'rolex',
+    title: 'Rolex',
+    subtitle: 'Premium exhibition stand and illuminated logo display',
+    category: 'Events & Exhibitions',
+    tag: 'Signage',
+    img: '/images/work_images/Qwe14.jpg',
+    accent: '#006039',
+    year: '2023',
+  },
+  {
+    id: 'prada',
+    title: 'Prada',
+    subtitle: 'Minimalist neon integration for flagship store exterior',
+    category: 'Shop Fit-Out',
+    tag: 'Signage',
+    img: '/images/work_images/Qwe15.jpg',
+    accent: '#000000',
+    year: '2024',
+  },
+  {
+    id: 'cartier',
+    title: 'Cartier',
+    subtitle: 'Bespoke red and gold festive mall atrium installation',
+    category: 'Mall Pop-Up',
+    tag: 'Production',
+    img: '/images/work_images/Qwe16.jpg',
+    accent: '#E32636',
+    year: '2024',
   },
 ];
 
@@ -110,7 +170,7 @@ const rightCards: CardData[] = [
     subtitle: 'Curved LED mall pavilion',
     category: 'Mall Pop-Up',
     tag: 'Installation',
-    img: 'https://images.unsplash.com/photo-1555529771-835f59fc5efe?w=800&q=80',
+    img: '/images/work_images/Qwe7.jpg',
     accent: '#00A693',
     variant: 'portrait',
   },
@@ -120,7 +180,7 @@ const rightCards: CardData[] = [
     subtitle: 'Event wall & exhibition branding',
     category: 'Events & Exhibitions',
     tag: 'Production',
-    img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=80',
+    img: '/images/work_images/Qwe8.jpg',
     accent: '#E5302C',
     variant: 'landscape',
   },
@@ -132,7 +192,7 @@ const centerTopCard: CardData = {
   subtitle: 'Retail interior design',
   category: 'Interior',
   tag: 'Production',
-  img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80',
+  img: '/images/work_images/Qwe9.jpg',
   accent: '#E5302C',
   variant: 'landscape',
 };
@@ -143,7 +203,7 @@ const centerBottomCard: CardData = {
   subtitle: 'Minimalist retail experience',
   category: 'Interior',
   tag: 'Installation',
-  img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+  img: '/images/work_images/Qwe10.jpg',
   accent: '#2C7BE5',
   variant: 'landscape',
 };
@@ -334,7 +394,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20 z-10" />
 
       {/* ── Top bar — tag + year ── */}
-      <div className="absolute top-6 left-6 right-6 flex items-center justify-between z-20">
+      <div className="absolute top-6 left-6 right-6 flex items-center z-20">
         <AnimatePresence mode="wait">
           <motion.span
             key={slide.id + '-tag'}
@@ -348,28 +408,25 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
             {slide.tag}
           </motion.span>
         </AnimatePresence>
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={slide.id + '-year'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            className="text-[11px] text-white/45 font-light tracking-widest font-space-grotesk"
-          >
-            {slide.year}
-          </motion.span>
-        </AnimatePresence>
+
+        {/* Centered Year */}
+        <div className="absolute inset-x-0 flex justify-center pointer-events-none">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={slide.id + '-year'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
+              className="text-[11px] text-white/45 font-light tracking-widest font-space-grotesk"
+            >
+              {slide.year}
+            </motion.span>
+          </AnimatePresence>
+        </div>
       </div>
 
-      {/* ── Slide counter — top-right corner ── */}
-      <div className="absolute top-6 right-6 z-20">
-        <span className="font-space-grotesk text-[11px] text-white/35 tracking-widest">
-          {String(current + 1).padStart(2, '0')}
-          <span className="text-white/20 mx-1">/</span>
-          {String(heroSlides.length).padStart(2, '0')}
-        </span>
-      </div>
+
 
       {/* ── Accent progress bar — animates across full width per slide ── */}
       <AnimatePresence>
@@ -386,8 +443,8 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
         )}
       </AnimatePresence>
 
-      {/* ── Bottom overlay — title + subtitle ── */}
-      <div className="glass-overlay absolute bottom-0 left-0 right-0 px-7 pt-5 pb-6 z-20">
+      {/* ── Bottom overlay — title + subtitle + controls ── */}
+      <div className="glass-overlay absolute bottom-0 left-0 right-0 h-[25%] px-7 flex items-center justify-between z-20">
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.id + '-text'}
@@ -396,47 +453,57 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
             animate="center"
             exit="exit"
             transition={{ duration: 0.5, ease: EASE }}
+            className="flex-1 pr-6"
           >
-            <span className="text-xs text-white/45 font-medium tracking-wider mb-2 block font-space-grotesk">
+            <span className="text-[10px] text-white/45 font-medium tracking-wider mb-1 block font-space-grotesk">
               {slide.category}
             </span>
             <h3
-              className="font-syne font-bold text-white leading-tight mb-2"
-              style={{ fontSize: 'clamp(1.4rem, 3vw, 2.1rem)' }}
+              className="font-syne font-bold text-white leading-tight mb-1 truncate"
+              style={{ fontSize: 'clamp(1.1rem, 2vw, 1.6rem)' }}
             >
               {slide.title}
             </h3>
             <p
-              className="text-white/55 font-light tracking-wide leading-snug"
-              style={{ fontSize: 'clamp(0.78rem, 1.1vw, 0.9rem)', maxWidth: '34ch' }}
+              className="text-white/55 font-light tracking-wide leading-snug line-clamp-1"
+              style={{ fontSize: 'clamp(0.7rem, 0.9vw, 0.8rem)', maxWidth: '40ch' }}
             >
               {slide.subtitle}
             </p>
           </motion.div>
         </AnimatePresence>
 
-        {/* ── Dot indicators + arrow controls ── */}
-        <div className="flex items-center justify-between mt-5">
-          {/* Dots */}
-          <div className="flex items-center gap-2">
-            {heroSlides.map((s, i) => (
-              <button
-                key={s.id}
-                onClick={() => goTo(i, i > current ? 1 : -1)}
-                aria-label={`Go to slide ${i + 1}: ${s.title}`}
-                className="hero-dot"
-                style={{
-                  width: i === current ? '28px' : '8px',
-                  height: '8px',
-                  borderRadius: '999px',
-                  background: i === current ? slide.accent : 'rgba(255,255,255,0.25)',
-                  transition: 'all 0.4s cubic-bezier(0.34,1.56,0.64,1)',
-                  border: 'none',
-                  cursor: 'pointer',
-                  flexShrink: 0,
-                }}
-              />
-            ))}
+        {/* ── Controls: Counter, Dots, Arrows ── */}
+        <div className="flex flex-col items-end gap-3 flex-shrink-0">
+          <div className="flex items-center gap-4">
+            {/* Slide counter */}
+            <span className="font-space-grotesk text-[11px] text-white/50 tracking-widest">
+              {String(current + 1).padStart(2, '0')}
+              <span className="text-white/20 mx-1">/</span>
+              {String(heroSlides.length).padStart(2, '0')}
+            </span>
+
+            {/* Dots */}
+            <div className="flex items-center gap-2">
+              {heroSlides.map((s, i) => (
+                <button
+                  key={s.id}
+                  onClick={() => goTo(i, i > current ? 1 : -1)}
+                  aria-label={`Go to slide ${i + 1}: ${s.title}`}
+                  className="hero-dot"
+                  style={{
+                    width: i === current ? '28px' : '8px',
+                    height: '8px',
+                    borderRadius: '999px',
+                    background: i === current ? slide.accent : 'rgba(255,255,255,0.25)',
+                    transition: 'all 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Prev / Next arrows */}
@@ -595,17 +662,17 @@ export default function Projects() {
   // Phase 3 (0.6 -> 0.9): Hero holds size but fades away smoothly
   
   // Max scale is 2.1 (avoids vertically clipping the arrows on normal viewports)
-  const heroScale   = useTransform(scrollYProgress, [0, 0.4], [1, 2.1]);
-  const heroRadius  = useTransform(scrollYProgress, [0, 0.3], [20, 0]);
+  const heroScale   = useTransform(scrollYProgress, [0, 0.5], [1, 2.1]);
+  const heroRadius  = useTransform(scrollYProgress, [0, 1], [20, 20]);
   const heroOpacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0]);
 
   // Center floating cards translate vertically outward during Phase 1
-  const topCenterY = useTransform(scrollYProgress, [0, 0.4], ['0%', '-300%']);
-  const bottomCenterY = useTransform(scrollYProgress, [0, 0.4], ['0%', '300%']);
+  const topCenterY = useTransform(scrollYProgress, [0, 0.5], ['0%', '-300%']);
+  const bottomCenterY = useTransform(scrollYProgress, [0, 0.5], ['0%', '300%']);
 
   // Side columns slide out horizontally during Phase 1
-  const leftX  = useTransform(scrollYProgress, [0, 0.4], ['0%', '-165%']);
-  const rightX = useTransform(scrollYProgress, [0, 0.4], ['0%',  '165%']);
+  const leftX  = useTransform(scrollYProgress, [0, 0.5], ['0%', '-165%']);
+  const rightX = useTransform(scrollYProgress, [0, 0.5], ['0%',  '165%']);
 
   // ── Section header: fades out as hero begins growing ────────────────────────
   const headerOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0]);
@@ -728,7 +795,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Brand marquee */}
-        <MarqueeCarousel />
+        {/* <MarqueeCarousel /> */}
       </div>
     </section>
   );
