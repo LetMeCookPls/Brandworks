@@ -89,23 +89,23 @@ export default function Contact() {
                   <div>
                     <h4 className="font-space-grotesk font-semibold text-white mb-1">Our Office</h4>
                     <p className="font-dm-sans text-sm leading-relaxed text-gray-400">
-                      Office 21#, Mezzanine Floor,<br/>
-                      Al Ritaz Complex,<br/>
-                      Bin Khaldoun St., Hawally,<br/>
+                      Brand Works International Company LLC<br/>
+                      Street 22, near Naif Poultry<br/>
+                      Shuwaikh Industrial Area 2<br/>
                       Kuwait
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4 text-gray-300">
                   <div className="mt-1 text-brand-blue-light"><Phone size={24} /></div>
                   <div>
                     <h4 className="font-space-grotesk font-semibold text-white mb-1">Phone</h4>
-                    <a href="tel:+971559981420" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
-                      +971 55 998 1420
-                    </a> <br />
                     <a href="tel:+96550727586" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
                       +965 507 27586
+                    </a> <br />
+                    <a href="tel:+971559981420" className="font-dm-sans text-sm text-gray-400 hover:text-white transition-colors">
+                      +971 55 998 1420
                     </a>
                   </div>
                 </div>
@@ -208,6 +208,50 @@ export default function Contact() {
         </motion.div>
 
       </div>
+
+      {/* Map */}
+      <motion.div
+        className="mt-16 sm:mt-20"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.6, ease: EASE }}
+      >
+        <div className="glass-panel overflow-hidden p-1 sm:p-1.5">
+          <div className="relative w-full overflow-hidden rounded-[14px] border border-white/10">
+            <div
+              className="pointer-events-none absolute inset-0 z-10"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(13,13,15,0.35) 0%, transparent 28%, transparent 72%, rgba(13,13,15,0.45) 100%)',
+              }}
+              aria-hidden="true"
+            />
+            <iframe
+              title="Brand Works International Company LLC — Shuwaikh Industrial Area 2"
+              src="https://maps.google.com/maps?q=29.322689,47.939278&hl=en&z=15&output=embed"
+              className="block w-full border-0 grayscale-[35%] contrast-[1.08] brightness-[0.72] saturate-[0.85]"
+              style={{ height: 'clamp(280px, 42vw, 420px)' }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-5 py-4">
+            <p className="font-dm-sans text-sm text-gray-400 leading-relaxed">
+              Street 22, near Naif Poultry — Shuwaikh Industrial Area 2, Kuwait
+            </p>
+            <a
+              href="https://maps.google.com/?q=29.322689,47.939278"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass-button inline-flex items-center justify-center gap-2 shrink-0 font-space-grotesk text-xs font-semibold uppercase tracking-[0.08em] text-white px-4 py-2.5 no-underline"
+            >
+              <MapPin size={14} />
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+      </motion.div>
 
       <AnimatePresence>
         {(status === 'success' || status === 'error') && (

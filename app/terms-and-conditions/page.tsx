@@ -435,7 +435,7 @@ export default function TermsPage() {
                 <span className="en-text">Address</span>
                 <span className="ar-text">العنوان</span>
               </p>
-              <p className="ci-val">Office 21#, Mezzanine Floor, Al Ritaz Complex, Bin Khaldoun St., Hawally, Kuwait</p>
+              <p className="ci-val">Brand Works International Company LLC, Street 22, near Naif Poultry, Shuwaikh Industrial Area 2, Kuwait</p>
             </div>
             <div className="contact-item">
               <p className="ci-label">

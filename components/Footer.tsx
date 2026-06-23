@@ -186,7 +186,7 @@ export default function Footer() {
               <MapPin size={14} color="rgba(255,255,255,0.45)" style={{ marginTop: 2, flexShrink: 0 }} />
               <div className="flex flex-col gap-[2px] items-center sm:items-start">
                 <HoverSplitText
-                  text="Office 21#, Mezzanine Floor, Al Ritaz Complex,"
+                  text="Brand Works International Company LLC"
                   staggerDelay={0.005}
                   style={{
                     fontFamily: 'var(--font-dm-sans), sans-serif',
@@ -197,7 +197,18 @@ export default function Footer() {
                   className="hover:text-white transition-colors text-center sm:text-left"
                 />
                 <HoverSplitText
-                  text="Bin Khaldoun St., Hawally, Kuwait"
+                  text="Street 22, near Naif Poultry"
+                  staggerDelay={0.005}
+                  style={{
+                    fontFamily: 'var(--font-dm-sans), sans-serif',
+                    fontSize: '13px',
+                    color: 'rgba(255,255,255,0.65)',
+                    lineHeight: 1.6
+                  }}
+                  className="hover:text-white transition-colors text-center sm:text-left"
+                />
+                <HoverSplitText
+                  text="Shuwaikh Industrial Area 2, Kuwait"
                   staggerDelay={0.005}
                   style={{
                     fontFamily: 'var(--font-dm-sans), sans-serif',
@@ -225,8 +236,8 @@ export default function Footer() {
             <div className="flex items-center gap-[10px]">
               <Phone size={14} color="#0DC76A" style={{ flexShrink: 0 }} />
               <HoverSplitText
-                text="+971 55 998 1420"
-                href="tel:+971559981420"
+                text="+965 507 27586"
+                href="tel:+96550727586"
                 staggerDelay={0.012}
                 style={{
                   fontFamily: 'var(--font-dm-sans), sans-serif',
@@ -239,8 +250,8 @@ export default function Footer() {
             <div className="flex items-center gap-[10px] mt-3">
               <Phone size={14} color="#0DC76A" style={{ flexShrink: 0 }} />
               <HoverSplitText
-                text="+965 507 27586"
-                href="tel:+96550727586"
+                text="+971 55 998 1420"
+                href="tel:+971559981420"
                 staggerDelay={0.012}
                 style={{
                   fontFamily: 'var(--font-dm-sans), sans-serif',
