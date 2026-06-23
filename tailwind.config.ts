@@ -7,6 +7,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        syne: ["var(--font-syne)", "sans-serif"],
+        "dm-sans": ["var(--font-dm-sans)", "sans-serif"],
+        "space-grotesk": ["var(--font-space-grotesk)", "sans-serif"],
+        bebas: ["var(--font-bebas)", "sans-serif"],
+      },
       colors: {
         brand: {
           red: "var(--brand-red)",

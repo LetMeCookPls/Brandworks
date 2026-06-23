@@ -231,7 +231,7 @@ function SideCard({
       style={{ position: 'relative', overflow: 'hidden' }}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-10%' }}
+      viewport={{ once: true, margin: '100%' }}
       transition={{ duration: 0.85, ease: EASE, delay: index * 0.1 }}
       whileHover={{ scale: 1.012 }}
     >
@@ -454,7 +454,10 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity, scrollYProgress }:
       </AnimatePresence>
 
       {/* ── Bottom overlay — title + subtitle + controls ── */}
-      <div className="glass-overlay absolute bottom-0 left-0 right-0 h-[25%] px-7 flex items-center justify-between z-20">
+      <motion.div 
+        className="glass-overlay absolute bottom-0 left-0 right-0 h-[25%] px-7 flex items-center justify-between z-20"
+        style={{ borderBottomLeftRadius: scrollRadius, borderBottomRightRadius: scrollRadius }}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.id + '-text'}
@@ -538,7 +541,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity, scrollYProgress }:
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -666,27 +669,65 @@ export default function Projects() {
     offset: ['start start', 'end end'],
   });
 
+  // ── Desktop detection for animations ────────────────────────────────────────
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(min-width: 769px)');
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
   // ── Animation sequence ──────────────────────────────────────────────────────
   // Phase 1 (0 -> 0.4): Hero expands to fill viewport, sides fly out
   // Phase 2 (0.4 -> 0.6): Hold max scale for viewing
   // Phase 3 (0.6 -> 0.9): Hero holds size but fades away smoothly
   
   // Max scale is 2.1 (avoids vertically clipping the arrows on normal viewports)
-  const heroScale   = useTransform(scrollYProgress, [0, 0.5], [1, 2.1]);
-  const heroRadius  = useTransform(scrollYProgress, [0, 0.5], [20, 0]);
-  const heroOpacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0]);
+  const heroScale   = useTransform(scrollYProgress, [0.15, 0.55], [1, 2.1]);
+  // Maintain a visual 20px radius by dividing by the current scale
+  const heroRadius  = useTransform(heroScale, (scale) => 20 / scale);
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
   // Center floating cards translate vertically outward during Phase 1
-  const topCenterY = useTransform(scrollYProgress, [0, 0.5], ['0%', '-300%']);
-  const bottomCenterY = useTransform(scrollYProgress, [0, 0.5], ['0%', '300%']);
+  const topCenterY = useTransform(scrollYProgress, [0.15, 0.55], ['0%', '-300%']);
+  const bottomCenterY = useTransform(scrollYProgress, [0.15, 0.55], ['0%', '300%']);
 
   // Side columns slide out horizontally during Phase 1
-  const leftX  = useTransform(scrollYProgress, [0, 0.5], ['0%', '-165%']);
-  const rightX = useTransform(scrollYProgress, [0, 0.5], ['0%',  '165%']);
+  const leftX  = useTransform(scrollYProgress, [0.15, 0.55], ['0%', '-165%']);
+  const rightX = useTransform(scrollYProgress, [0.15, 0.55], ['0%',  '165%']);
+  
+  // Fade out side columns and floating cards much later in the scroll sequence
+  const sideOpacity = useTransform(scrollYProgress, [0.65, 0.75], [1, 0]);
+  const sideVisibility = useTransform(scrollYProgress, (v) => v >= 0.75 ? 'hidden' : 'visible');
 
-  // ── Section header: fades out as hero begins growing ────────────────────────
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0]);
-  const headerY       = useTransform(scrollYProgress, [0, 0.18], [0, -24]);
+  // ── Section header: remains fully visible at all times ─────────────────
+  const headerOpacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
+  // Header stays fixed below the Nav bar, acting as a sticky title
+  const headerY       = useTransform(scrollYProgress, [0, 1], ['0vh', '0vh']);
+  
+  // ── Grid positioning ───────────────────────────────────────────────────
+  // Simulate normal scroll during the 0-15% "dead zone" so the bottom cards
+  // fully enter the viewport on shorter screens, before scattering begins.
+  const gridY         = useTransform(scrollYProgress, [0, 0.15, 0.55], ['0vh', '-12vh', '0vh']);
+
+  // ── Responsive Animation Wrappers ───────────────────────────────────────
+  // These wrappers ensure the scroll transforms only apply on desktop.
+  // On mobile, the elements stay in their default normal-flow positions.
+  const activeHeroScale = useTransform(heroScale, v => isDesktop ? v : 1);
+  const activeHeroRadius = useTransform(heroRadius, v => isDesktop ? v : 20);
+  const activeHeroOpacity = useTransform(heroOpacity, v => isDesktop ? v : 1);
+  const activeTopCenterY = useTransform(topCenterY, v => isDesktop ? v : '0%');
+  const activeBottomCenterY = useTransform(bottomCenterY, v => isDesktop ? v : '0%');
+  const activeLeftX = useTransform(leftX, v => isDesktop ? v : '0%');
+  const activeRightX = useTransform(rightX, v => isDesktop ? v : '0%');
+  const activeSideOpacity = useTransform(sideOpacity, v => isDesktop ? v : 1);
+  const activeSideVisibility = useTransform(sideVisibility, v => isDesktop ? v : 'visible');
+  const activeHeaderOpacity = useTransform(headerOpacity, v => isDesktop ? v : 1);
+  const activeHeaderY = useTransform(headerY, v => isDesktop ? v : '0vh');
+  const activeGridY = useTransform(gridY, v => isDesktop ? v : '0vh');
 
   return (
     <section id="projects" className="projects-section-outer relative z-10">
@@ -705,20 +746,20 @@ export default function Projects() {
         <div className="scroll-pin-sticky">
           <div className="projects-container" style={{ width: '100%' }}>
 
-            {/* Section header — fades up out as hero expands */}
+            {/* Section header — stays static under nav bar */}
             <motion.div
-              className="projects-header"
-              style={{ opacity: headerOpacity, y: headerY }}
+              className="projects-header relative z-30"
+              style={{ opacity: activeHeaderOpacity, y: activeHeaderY }}
             >
               <SectionHeading>Our Works</SectionHeading>
               <motion.p
-                className="projects-subtitle font-space-grotesk"
+                className="projects-subtitle font-syne"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.65, ease: EASE, delay: 0.15 }}
               >
-                Selected luxury retail &amp; exhibition installations across global markets
+                Selected Luxury Retail &amp; Exhibition Installations<br />Across Global Markets
               </motion.p>
             </motion.div>
 
@@ -729,12 +770,12 @@ export default function Projects() {
                   RIGHT → 3 col  (25%)  translated out right
                 All gutters: 24 px | hero height: 3 × side-card + 2 × gap
             ─────────────────────────────────────────────────────────── */}
-            <div className="editorial-grid">
+            <motion.div className="editorial-grid" style={{ y: activeGridY }}>
 
               {/* LEFT column — slides out left */}
               <motion.div
                 className="editorial-col editorial-col--left"
-                style={{ x: leftX }}
+                style={{ x: activeLeftX, opacity: activeSideOpacity, visibility: activeSideVisibility as any }}
               >
                 {leftCards.map((card, i) => (
                   <SideCard key={card.id} project={card} index={i} />
@@ -744,19 +785,19 @@ export default function Projects() {
               {/* CENTER hero — grows to fill sticky viewport */}
               <div className="editorial-col editorial-col--hero">
                 {/* Floating Top Right */}
-                <motion.div style={{ y: topCenterY, width: '45%', alignSelf: 'flex-end', zIndex: 11 }}>
+                <motion.div style={{ y: activeTopCenterY, width: '45%', alignSelf: 'flex-end', zIndex: 11, opacity: activeSideOpacity, visibility: activeSideVisibility as any }}>
                   <SideCard project={centerTopCard} index={0} />
                 </motion.div>
                 
                 <HeroCard 
-                  scrollScale={heroScale} 
-                  scrollRadius={heroRadius} 
-                  scrollOpacity={heroOpacity} 
+                  scrollScale={activeHeroScale} 
+                  scrollRadius={activeHeroRadius} 
+                  scrollOpacity={activeHeroOpacity} 
                   scrollYProgress={scrollYProgress}
                 />
                 
                 {/* Floating Bottom Left */}
-                <motion.div style={{ y: bottomCenterY, width: '45%', alignSelf: 'flex-start', zIndex: 11 }}>
+                <motion.div style={{ y: activeBottomCenterY, width: '45%', alignSelf: 'flex-start', zIndex: 11, opacity: activeSideOpacity, visibility: activeSideVisibility as any }}>
                   <SideCard project={centerBottomCard} index={1} />
                 </motion.div>
               </div>
@@ -764,14 +805,14 @@ export default function Projects() {
               {/* RIGHT column — slides out right */}
               <motion.div
                 className="editorial-col editorial-col--right"
-                style={{ x: rightX }}
+                style={{ x: activeRightX, opacity: activeSideOpacity, visibility: activeSideVisibility as any }}
               >
                 {rightCards.map((card, i) => (
                   <SideCard key={card.id} project={card} index={i} />
                 ))}
               </motion.div>
 
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

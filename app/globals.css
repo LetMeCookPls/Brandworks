@@ -482,6 +482,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 /* ── Outer section wrapper ────────────────────────────────────────────────── */
 .projects-section-outer {
   /* No padding — pin zone and below-fold handle their own spacing */
+  overflow-x: clip;
 }
 
 /* ── Scroll-pin zone — 280 vh tall, scroll progress drives animation ─────── */
@@ -495,7 +496,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   position: sticky;
   top: 0;
   height: 100vh;           /* always fills the viewport */
-  overflow: hidden;        /* clips hero overflow as it scales past bounds */
+  /* overflow: hidden removed to prevent clipping the hero card's rounded bottom corners */
   display: flex;
   align-items: center;     /* vertically centre the editorial grid */
 }
@@ -520,21 +521,22 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 /* ── Section header ───────────────────────────────────────────────────────── */
 .projects-header {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 4px;
   margin-bottom: calc(24px * 2);   /* 48px — 2× rhythm */
 }
 
 .projects-subtitle {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.38);
-  max-width: 38ch;
-  text-align: right;
-  line-height: 1.6;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 55ch;
+  text-align: left;
+  line-height: 1.4;
+  padding-left: 48px; /* Optically aligns perfectly with the 'Our Works' text, accounting for the dash and gap */
 }
 
 /* ── Editorial grid — strict 12-col via CSS grid ──────────────────────────── */
