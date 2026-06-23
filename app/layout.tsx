@@ -29,6 +29,8 @@ export default function RootLayout({
         <CustomCursor />
         <Navbar />
         <main className="flex-grow">{children}</main>
+        {/* Seamless transition fade from global background to the Footer */}
+        <div className="w-full h-48 sm:h-64 bg-gradient-to-b from-transparent to-[#050508] pointer-events-none z-0" aria-hidden="true" />
         <Footer />
       </body>
     </html>
