@@ -457,7 +457,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity, scrollYProgress }:
                    glass border-x-0 border-b-0 border-t-white/10"
         style={{ borderBottomLeftRadius: scrollRadius, borderBottomRightRadius: scrollRadius }}
       >
-        <div className="absolute inset-0 bg-black/50 z-0" style={{ borderBottomLeftRadius: scrollRadius, borderBottomRightRadius: scrollRadius }} />
+        <motion.div className="absolute inset-0 bg-black/50 z-0" style={{ borderBottomLeftRadius: scrollRadius, borderBottomRightRadius: scrollRadius }} />
 
         <AnimatePresence mode="wait">
           <motion.div

@@ -1,75 +1,183 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import SectionHeading from '../ui/SectionHeading';
-import Logo from '@/components/Logo';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
-export default function About() {
-  return (
-    <section id="about" className="py-24 sm:py-32 relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
-      <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
-        
-        {/* Left Side: Text */}
-        <motion.div 
-          className="w-full lg:w-[55%] flex flex-col items-start"
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: EASE }}
-        >
-          <SectionHeading>About Brandworks</SectionHeading>
-          
-          <div className="font-dm-sans text-gray-300 text-lg leading-relaxed flex flex-col gap-6 max-w-2xl">
-            <p>
-              Brandworks Advertising, a leading service provider in Kuwait, offers a wide range of solutions including Carpentry, Acrylic, Metal, Painting Works, Graphics, Signage, Mall Pop Up Production, Display Stand Installation, Digital and LED Screens, Maintenance, MEP, CCTV Services, and more.
-            </p>
-            <p>
-              With years of experience and a skilled team, we deliver innovative, high-quality solutions to meet diverse client needs, aiming to foster business growth and success through exceptional services and lasting relationships.
-            </p>
-            <p>
-              Contact us today for more information on how we can help achieve your business goals.
-            </p>
-            
-            <div className="glass-pill mt-4 flex items-center gap-3 py-3 px-5 w-max">
-              <span className="text-xl">🇰🇼</span>
-              <span className="font-space-grotesk font-medium text-white tracking-wide">
-                Based in Kuwait City, Kuwait
-              </span>
-            </div>
-          </div>
-        </motion.div>
+const FLOATING_BOXES = [
+  {
+    id: 'box-red',
+    color: 'var(--brand-red)',
+    className: 'w-[200px] h-[250px] md:w-[300px] md:h-[400px] top-[0%] left-[-2%] rotate-[-6deg]',
+    yOffset: -120,
+    delay: 0,
+    duration: 8,
+  },
+  {
+    id: 'box-blue-light',
+    color: 'var(--brand-blue-light)',
+    className: 'w-[180px] h-[180px] md:w-[250px] md:h-[250px] top-[15%] right-[5%] rotate-[12deg] rounded-full',
+    yOffset: 150,
+    delay: 1.5,
+    duration: 10,
+  },
+  {
+    id: 'box-blue-dark',
+    color: 'var(--brand-blue-dark)',
+    className: 'w-[250px] h-[120px] md:w-[400px] md:h-[180px] bottom-[20%] left-[10%] rotate-[-15deg] rounded-[3rem]',
+    yOffset: -80,
+    delay: 0.5,
+    duration: 9,
+  },
+  {
+    id: 'box-green',
+    color: 'var(--brand-green)',
+    className: 'w-[280px] h-[300px] md:w-[450px] md:h-[500px] bottom-[-15%] right-[-5%] rotate-[8deg]',
+    yOffset: 100,
+    delay: 2,
+    duration: 12,
+  },
+  {
+    id: 'box-yellow',
+    color: 'var(--brand-yellow)',
+    className: 'w-[120px] h-[120px] md:w-[160px] md:h-[160px] top-[40%] left-[45%] rotate-[45deg]',
+    yOffset: -160,
+    delay: 1,
+    duration: 7,
+  },
+];
 
-        {/* Right Side: Visual */}
-        <motion.div 
-          className="w-full lg:w-[45%] flex justify-center relative mt-12 lg:mt-0"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-        >
-          <div className="relative w-[340px] h-[340px] sm:w-[400px] sm:h-[400px] flex items-center justify-center">
+export default function About() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Parallax effect on scroll
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  return (
+    <section 
+      id="about" 
+      ref={containerRef}
+      className="relative py-32 sm:py-48 overflow-hidden"
+    >
+      {/* --- BACKGROUND FLOATING GLASS PANELS --- */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="relative w-full h-full max-w-[1400px] mx-auto">
+          {FLOATING_BOXES.map((box) => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const y = useTransform(scrollYProgress, [0, 1], [box.yOffset, -box.yOffset]);
             
-            <motion.div 
-              className="absolute z-0 w-[240px] h-[240px] sm:w-[320px] sm:h-[320px]"
-              animate={{ y: [-8, 8, -8] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            return (
+              <motion.div
+                key={box.id}
+                className={`absolute ${box.className}`}
+                style={{ y }}
+              >
+                <motion.div 
+                  className="w-full h-full glass border-white/10 relative overflow-hidden"
+                  style={{ borderRadius: 'inherit' }}
+                  animate={{
+                    y: [0, 15, -15, 0],
+                    rotate: ['0deg', '2deg', '-2deg', '0deg'],
+                  }}
+                  transition={{
+                    duration: box.duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: box.delay,
+                  }}
+                >
+                  {/* Color Tint Overlay inside the glass box */}
+                  <div 
+                    className="absolute inset-0 z-0" 
+                    style={{ 
+                      backgroundColor: box.color, 
+                      opacity: 0.3,
+                    }} 
+                  />
+                  
+                  {/* Glow behind the box content but inside container */}
+                  <div 
+                    className="absolute inset-0 z-[-1] blur-3xl"
+                    style={{
+                      backgroundColor: box.color,
+                      opacity: 0.4
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* --- FOREGROUND CONTENT --- */}
+      <div className="relative z-10 px-6 sm:px-12 lg:px-24 max-w-[1400px] mx-auto">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-24">
+          
+          {/* Left Column: Heading & Pill */}
+          <div className="w-full lg:w-5/12 flex flex-col items-start gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: EASE }}
             >
-              <Logo className="w-full h-full" />
+              <SectionHeading>About Brandworks</SectionHeading>
             </motion.div>
 
-            {/* Overlay Glass Card */}
-            <div className="glass-panel relative z-10 p-8 max-w-[280px] sm:max-w-[320px] shadow-2xl ml-12 sm:ml-24 mt-12 sm:mt-24">
-              <h4 className="font-syne font-bold text-xl text-white mb-4">Our Mission</h4>
-              <p className="font-dm-sans text-gray-200 italic leading-relaxed text-sm sm:text-base">
-                &quot;To empower businesses by constructing visually striking, structurally sound, and strategically aligned physical brand experiences.&quot;
+            {/* Location Pill */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+              className="glass rounded-full py-3 px-6 flex items-center gap-4 border-white/10 shadow-xl"
+            >
+              <span className="text-2xl drop-shadow-lg">🇰🇼</span>
+              <span className="font-space-grotesk font-medium text-white/90 tracking-wide text-sm md:text-base">
+                Based in Kuwait City, Kuwait
+              </span>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Copy & Mission */}
+          <motion.div 
+            className="w-full lg:w-7/12 flex flex-col gap-10 lg:gap-16 lg:mt-32"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+          >
+            {/* Descriptive Text */}
+            <div className="font-dm-sans text-white/70 text-[clamp(16px,1.5vw,20px)] leading-[1.8] font-light flex flex-col gap-8 max-w-3xl drop-shadow-lg">
+              <p>
+                Brandworks Advertising, a leading service provider in Kuwait, offers a comprehensive suite of solutions encompassing <strong className="text-white font-medium">Carpentry, Acrylic, Metal, Painting Works, Graphics, Signage, Mall Pop Up Production, Display Stand Installation, Digital and LED Screens, Maintenance, MEP, CCTV Services,</strong> and more.
+              </p>
+              <p>
+                Backed by years of experience and a highly skilled team, we deliver innovative, premium-quality solutions tailored to meet diverse client needs. Our goal is to drive business growth and success through exceptional service execution and enduring partnerships.
               </p>
             </div>
 
-          </div>
-        </motion.div>
-
+            {/* Mission Statement Glass Card */}
+            <motion.div 
+              className="glass rounded-3xl p-8 md:p-12 relative overflow-hidden group border-white/10"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              <div className="absolute top-0 left-0 w-1.5 h-full bg-white/20 group-hover:bg-brand-red transition-colors duration-500" />
+              <h4 className="font-syne font-bold text-xl md:text-2xl text-white mb-6 pl-4">Our Mission</h4>
+              <p className="font-dm-sans text-white/85 italic leading-relaxed text-lg md:text-xl pl-4 drop-shadow-md">
+                &quot;To empower businesses by constructing visually striking, structurally sound, and strategically aligned physical brand experiences.&quot;
+              </p>
+            </motion.div>
+            
+          </motion.div>
+        </div>
       </div>
     </section>
   );
