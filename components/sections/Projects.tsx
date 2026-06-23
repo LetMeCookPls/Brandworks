@@ -673,7 +673,7 @@ export default function Projects() {
   
   // Max scale is 2.1 (avoids vertically clipping the arrows on normal viewports)
   const heroScale   = useTransform(scrollYProgress, [0, 0.5], [1, 2.1]);
-  const heroRadius  = useTransform(scrollYProgress, [0, 1], [20, 20]);
+  const heroRadius  = useTransform(scrollYProgress, [0, 0.5], [20, 0]);
   const heroOpacity = useTransform(scrollYProgress, [0.6, 0.9], [1, 0]);
 
   // Center floating cards translate vertically outward during Phase 1
