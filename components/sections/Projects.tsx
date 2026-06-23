@@ -298,9 +298,10 @@ interface HeroCardProps {
   scrollRadius: MotionValue<number>;
   /** Scroll-driven opacity: 1 → 0 */
   scrollOpacity: MotionValue<number>;
+  scrollYProgress: MotionValue<number>;
 }
 
-function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
+function HeroCard({ scrollScale, scrollRadius, scrollOpacity, scrollYProgress }: HeroCardProps) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
   const [isPaused, setIsPaused] = useState(false);
@@ -328,6 +329,9 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
 
   const slide = heroSlides[current];
   const tag = tagColors[slide.tag] ?? { bg: 'rgba(255,255,255,0.10)', color: '#ffffff' };
+
+  // Scroll-driven image zoom scale: starts zoomed in at 1.4, zooms out smoothly to 1.0
+  const imageScale = useTransform(scrollYProgress, [0, 0.5], [1.4, 1.0]);
 
   // Slide variants — crossfade (opacity) + slight horizontal drift
   const imgVariants = {
@@ -369,22 +373,28 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
           transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="absolute inset-0"
         >
-          {/* Ken Burns slow zoom — continuous grow on the active image */}
+          {/* Scroll-driven zoom wrapper */}
           <motion.div
             className="absolute inset-0"
-            initial={{ scale: 1.0 }}
-            animate={{ scale: 1.10 }}
-            transition={{ duration: SLIDE_DURATION / 1000 + 1, ease: 'linear' }}
+            style={{ scale: imageScale }}
           >
-            <Image
-              src={slide.img}
-              alt={slide.title}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              unoptimized={false}
-            />
+            {/* Ken Burns slow zoom — continuous grow on the active image */}
+            <motion.div
+              className="absolute inset-0"
+              initial={{ scale: 1.0 }}
+              animate={{ scale: 1.10 }}
+              transition={{ duration: SLIDE_DURATION / 1000 + 1, ease: 'linear' }}
+            >
+              <Image
+                src={slide.img}
+                alt={slide.title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                unoptimized={false}
+              />
+            </motion.div>
           </motion.div>
         </motion.div>
       </AnimatePresence>
@@ -742,6 +752,7 @@ export default function Projects() {
                   scrollScale={heroScale} 
                   scrollRadius={heroRadius} 
                   scrollOpacity={heroOpacity} 
+                  scrollYProgress={scrollYProgress}
                 />
                 
                 {/* Floating Bottom Left */}
