@@ -245,9 +245,7 @@ function SideCard({
           className="side-card__img object-cover"
           unoptimized={false}
         />
-        {/* gradient scrim */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent
-                        transition-opacity duration-500 group-hover:opacity-95" />
+
         {/* accent bar */}
         <div
           className="absolute bottom-0 left-0 w-full h-[2px] scale-x-0 group-hover:scale-x-100
@@ -257,25 +255,27 @@ function SideCard({
       </div>
 
       {/* Overlay text */}
-      <div className="side-card__overlay glass-overlay absolute bottom-0 left-0 right-0 px-5 pt-4 pb-5
-                      translate-y-1 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-        {/* tag + category */}
-        <div className="flex items-center gap-2 mb-2 flex-wrap">
-          <span
-            className="px-2.5 py-[3px] text-[9px] font-bold uppercase tracking-[0.16em] rounded-full"
-            style={{ background: tag.bg, color: tag.color }}
-          >
-            {project.tag}
-          </span>
-          <span className="text-[10px] text-white/45 font-medium tracking-wider">{project.category}</span>
+      <div className="absolute bottom-0 left-0 right-0 h-[25%] max-h-[25%] flex flex-col justify-center px-4 overflow-hidden
+                      glass border-x-0 border-b-0 border-t-white/10 z-20
+                      translate-y-1 group-hover:translate-y-0 transition-all duration-500 ease-out">
+        {/* Darkening layer strictly constrained to the 25% boundary */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+        
+        {/* Horizontal arrangement to prevent vertical overflow on small cards */}
+        <div className="flex items-center justify-between w-full relative z-10">
+           <div className="flex-1 min-w-0 pr-2">
+              <h3 className="font-syne font-semibold text-white text-[clamp(11px,1.2vw,16px)] leading-tight truncate">
+                {project.title}
+              </h3>
+              <p className="text-white/50 text-[clamp(9px,0.9vw,11px)] leading-snug truncate mt-0.5 font-light tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-400 delay-75">
+                {project.subtitle}
+              </p>
+           </div>
+           {/* Tag - shrinks down if needed, hidden on absolute smallest sizes */}
+           <span className="hidden sm:inline-block shrink-0 px-2 py-[2px] text-[8px] font-bold uppercase rounded-full whitespace-nowrap" style={{ background: tag.bg, color: tag.color }}>
+             {project.tag}
+           </span>
         </div>
-        {/* title */}
-        <h3 className="font-syne font-semibold text-white text-base leading-tight">{project.title}</h3>
-        {/* subtitle — appears on hover */}
-        <p className="text-white/50 text-[11px] mt-1 leading-snug opacity-0 group-hover:opacity-100
-                      transition-opacity duration-400 delay-75 font-light tracking-wide">
-          {project.subtitle}
-        </p>
       </div>
 
       {/* accent dot */}
@@ -399,8 +399,6 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity, scrollYProgress }:
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Gradient scrim ── */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/25 to-black/15 z-10" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20 z-10" />
 
       {/* ── Top bar — tag + year ── */}
@@ -455,9 +453,12 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity, scrollYProgress }:
 
       {/* ── Bottom overlay — title + subtitle + controls ── */}
       <motion.div 
-        className="glass-overlay absolute bottom-0 left-0 right-0 h-[25%] px-7 flex items-center justify-between z-20"
+        className="absolute bottom-0 left-0 right-0 h-[25%] max-h-[25%] px-7 flex items-center justify-between z-20
+                   glass border-x-0 border-b-0 border-t-white/10"
         style={{ borderBottomLeftRadius: scrollRadius, borderBottomRightRadius: scrollRadius }}
       >
+        <div className="absolute inset-0 bg-black/50 z-0" style={{ borderBottomLeftRadius: scrollRadius, borderBottomRightRadius: scrollRadius }} />
+
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.id + '-text'}
@@ -466,7 +467,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity, scrollYProgress }:
             animate="center"
             exit="exit"
             transition={{ duration: 0.5, ease: EASE }}
-            className="flex-1 pr-6"
+            className="flex-1 pr-6 relative z-10"
           >
             <span className="text-[10px] text-white/45 font-medium tracking-wider mb-1 block font-space-grotesk">
               {slide.category}
@@ -487,7 +488,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity, scrollYProgress }:
         </AnimatePresence>
 
         {/* ── Controls: Counter, Dots, Arrows ── */}
-        <div className="flex flex-col items-end gap-3 flex-shrink-0">
+        <div className="flex flex-col items-end gap-3 flex-shrink-0 relative z-10">
           <div className="flex items-center gap-4">
             {/* Slide counter */}
             <span className="font-space-grotesk text-[11px] text-white/50 tracking-widest">
