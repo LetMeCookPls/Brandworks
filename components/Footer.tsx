@@ -39,7 +39,7 @@ export default function Footer() {
     offset: ['start end', 'end end']
   })
 
-  // Scale stays at 0.35 while hidden behind map card, grows while stuck to bottom, finishes before scrolling away
+  // Scale stays at 0.35 initially, then grows as the map card pulls away
   const wordmarkScale = useTransform(wrapperProgress, [0, 0.35, 0.9, 1], [0.35, 0.35, 1, 1])
 
   return (
@@ -87,15 +87,16 @@ export default function Footer() {
           style={{
             position: 'relative',
             zIndex: 10,
-            marginTop: '-600px',
-            height: 'max(80vh, 1300px)', // Extended to cover negative margin and provide ample sticky room
+            // Dynamically calculate margin to perfectly maintain a small gap below the map card across all devices
+            marginTop: 'calc(-341px - clamp(30px, 12vw, 130px))',
+            height: 'max(80vh, 1000px)',
             paddingTop: '0px',
           }}
         >
           <motion.div style={{ 
             position: 'sticky',
-            // dynamically offset top so the bottom of the wordmark sticks to bottom of screen
-            top: 'calc(100svh - clamp(110px, 23vw, 270px))', 
+            // dynamically offset top so the bottom of the wordmark sticks to bottom of screen, plus 15vh to keep it closer to the map
+            top: 'calc(100svh - clamp(110px, 23vw, 270px) - 5vh)', 
             scale: wordmarkScale, 
             transformOrigin: 'bottom center',
             textAlign: 'center',
@@ -119,6 +120,7 @@ export default function Footer() {
               marginTop: '-4px',
               display: 'block',
               opacity: 0.88,
+              WebkitTextStroke: 'max(0.5px, 0.05vw) rgba(255,255,255,0.7)',
             }}>
               <SplitText text="ADVERTISING CO." delay={0.3} />
             </div>
