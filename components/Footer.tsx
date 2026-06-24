@@ -1,5 +1,6 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import { MapPin, Phone, Mail } from 'lucide-react'
 
 const InstagramIcon = () => (
@@ -31,6 +32,15 @@ import { usePathname } from 'next/navigation'
 
 export default function Footer() {
   const pathname = usePathname()
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  
+  const { scrollYProgress: wrapperProgress } = useScroll({
+    target: wrapperRef,
+    offset: ['start end', 'end end']
+  })
+
+  // Scale stays at 0.35 while hidden behind map card, grows while stuck to bottom, finishes before scrolling away
+  const wordmarkScale = useTransform(wrapperProgress, [0, 0.35, 0.9, 1], [0.35, 0.35, 1, 1])
 
   return (
     <motion.footer 
@@ -38,7 +48,7 @@ export default function Footer() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
       viewport={{ once: true, margin: '100px' }}
-      className="relative w-full overflow-hidden bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between"
+      className="relative w-full bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between"
     >
       {/* VIDEO BACKGROUND */}
       <video
@@ -72,36 +82,47 @@ export default function Footer() {
       {/* CONTENT WRAPPER */}
       <div className="relative z-10 w-full">
         {/* WORDMARK SECTION */}
-        <div style={{
-          position: 'relative',
-          zIndex: 10,
-          paddingTop: '160px',
-          paddingBottom: '40px',
-          textAlign: 'center',
-          overflow: 'hidden',
-        }}>
-          {/* BRANDWORKS */}
-          <div className="liquid-glass-text" style={{
-            fontFamily: 'var(--font-bebas)',
-            fontSize: 'clamp(72px, 16vw, 190px)',
-            letterSpacing: '0.01em',
-            lineHeight: 0.92,
-            display: 'block',
+        <div 
+          ref={wrapperRef}
+          style={{
+            position: 'relative',
+            zIndex: 10,
+            marginTop: '-600px',
+            height: 'max(80vh, 1300px)', // Extended to cover negative margin and provide ample sticky room
+            paddingTop: '0px',
+          }}
+        >
+          <motion.div style={{ 
+            position: 'sticky',
+            // dynamically offset top so the bottom of the wordmark sticks to bottom of screen
+            top: 'calc(100svh - clamp(110px, 23vw, 270px))', 
+            scale: wordmarkScale, 
+            transformOrigin: 'bottom center',
+            textAlign: 'center',
           }}>
-            <SplitText text="BRANDWORKS" delay={0} />
-          </div>
+            {/* BRANDWORKS */}
+            <div className="liquid-glass-text" style={{
+              fontFamily: 'var(--font-bebas)',
+              fontSize: 'clamp(72px, 16vw, 190px)',
+              letterSpacing: '0.01em',
+              lineHeight: 0.92,
+              display: 'block',
+            }}>
+              <SplitText text="BRANDWORKS" delay={0} />
+            </div>
 
-          {/* ADVERTISING CO. */}
-          <div className="liquid-glass-text" style={{
-            fontFamily: 'var(--font-bebas)',
-            fontSize: 'clamp(26px, 5.5vw, 62px)',
-            letterSpacing: '0.18em',
-            marginTop: '-4px',
-            display: 'block',
-            opacity: 0.88,
-          }}>
-            <SplitText text="ADVERTISING CO." delay={0.3} />
-          </div>
+            {/* ADVERTISING CO. */}
+            <div className="liquid-glass-text" style={{
+              fontFamily: 'var(--font-bebas)',
+              fontSize: 'clamp(26px, 5.5vw, 62px)',
+              letterSpacing: '0.18em',
+              marginTop: '-4px',
+              display: 'block',
+              opacity: 0.88,
+            }}>
+              <SplitText text="ADVERTISING CO." delay={0.3} />
+            </div>
+          </motion.div>
         </div>
 
         {/* DIVIDER 1 */}

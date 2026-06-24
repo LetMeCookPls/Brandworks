@@ -12,6 +12,8 @@ const config: Config = {
         "dm-sans": ["var(--font-dm-sans)", "sans-serif"],
         "space-grotesk": ["var(--font-space-grotesk)", "sans-serif"],
         bebas: ["var(--font-bebas)", "sans-serif"],
+        playfair: ["var(--font-playfair)", "serif"],
+        cinzel: ["var(--font-cinzel)", "serif"],
       },
       colors: {
         brand: {

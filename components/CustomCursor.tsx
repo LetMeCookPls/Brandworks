@@ -79,11 +79,11 @@ export default function CustomCursor() {
         ref={ringRef}
         className={`fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center transition-all duration-300 ease-out`}
         style={{
-          width: isHovering ? '56px' : '36px',
-          height: isHovering ? '56px' : '36px',
-          border: isHovering ? '1px solid transparent' : '1px solid rgba(255,255,255,0.4)',
-          backgroundColor: isHovering ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-          backdropFilter: isHovering ? 'blur(2px)' : 'none',
+          width: isHovering ? '64px' : '36px',
+          height: isHovering ? '64px' : '36px',
+          border: isHovering ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(255,255,255,0.4)',
+          backgroundColor: 'transparent',
+          backdropFilter: 'none',
         }}
       />
       <div

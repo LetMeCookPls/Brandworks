@@ -41,7 +41,7 @@ export default function Hero() {
         >
           <motion.div className="flex flex-col mb-6" variants={containerVariants}>
             <motion.h1
-              className="font-syne font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-white m-0"
+              className="font-playfair font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-white m-0"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -55,7 +55,7 @@ export default function Hero() {
               />
             </motion.h1>
             <motion.h1
-              className="font-syne font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-brand-red m-0"
+              className="font-playfair font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-brand-red m-0"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -69,7 +69,7 @@ export default function Hero() {
               />
             </motion.h1>
             <motion.h1
-              className="font-syne font-bold text-3xl md:text-[44px] leading-tight text-gray-400 mt-2"
+              className="font-playfair font-bold text-3xl md:text-[44px] leading-tight text-gray-400 mt-2"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -94,7 +94,7 @@ export default function Hero() {
           <motion.div className="flex flex-wrap gap-6 items-center" variants={itemVariants}>
             <a href="#projects" className="group relative block">
               <GlassCard hoverable className="px-8 py-4 bg-white/10 hover:bg-white/15 border-white/20">
-                <span className="font-space-grotesk font-semibold text-white tracking-wide group-hover:text-brand-red transition-colors">
+                <span className="font-playfair font-semibold text-white tracking-wide group-hover:text-brand-red transition-colors">
                   See Our Work
                 </span>
               </GlassCard>
@@ -102,7 +102,7 @@ export default function Hero() {
 
             <a
               href="#contact"
-              className="group flex items-center gap-2 font-space-grotesk font-medium text-white hover:text-brand-red transition-colors"
+              className="group flex items-center gap-2 font-playfair font-medium text-white hover:text-brand-red transition-colors"
             >
               Get in Touch
               <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
@@ -122,17 +122,17 @@ export default function Hero() {
             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-blue-light rounded-full mix-blend-screen filter blur-[64px] opacity-20" />
 
             <div className="flex flex-col pl-4 border-l-4 border-brand-red">
-              <span className="font-syne font-bold text-3xl text-white">150+</span>
+              <span className="font-playfair font-normal text-3xl text-white">150+</span>
               <span className="font-dm-sans text-gray-400">Projects Delivered</span>
             </div>
 
             <div className="flex flex-col pl-4 border-l-4 border-brand-green">
-              <span className="font-syne font-bold text-3xl text-white">GCC</span>
+              <span className="font-playfair font-normal text-3xl text-white">GCC</span>
               <span className="font-dm-sans text-gray-400">Kuwait &amp; Region</span>
             </div>
 
             <div className="flex flex-col pl-4 border-l-4 border-brand-yellow">
-              <span className="font-syne font-bold text-3xl text-white">2015</span>
+              <span className="font-playfair font-normal text-3xl text-white">2015</span>
               <span className="font-dm-sans text-gray-400">Established</span>
             </div>
           </GlassCard>
