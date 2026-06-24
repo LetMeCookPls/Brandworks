@@ -49,16 +49,26 @@ function GlassSlab({
     >
       {/* LAYER 1: The actual liquid glass distortion using SVG filter */}
       <div
+        className="liquid-layer-1"
         style={{
           position: 'absolute',
           inset: 0,
           borderRadius: '2px',
           background: 'rgba(255, 255, 255, 0.01)',
-          // Apply the SVG displacement filter to whatever is BEHIND the element
-          backdropFilter: `blur(8px) url(#${filterId})`,
-          WebkitBackdropFilter: `blur(8px) url(#${filterId})`,
         }}
       >
+        <style dangerouslySetInnerHTML={{__html: `
+          .liquid-layer-1 {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+          }
+          @media (min-width: 768px) {
+            .liquid-layer-1 {
+              backdrop-filter: blur(8px) url(#${filterId});
+              -webkit-backdrop-filter: blur(8px) url(#${filterId});
+            }
+          }
+        `}} />
         {/* Inline SVG filter definition */}
         <svg
           style={{

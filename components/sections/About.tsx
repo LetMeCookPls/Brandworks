@@ -49,6 +49,50 @@ const FLOATING_BOXES = [
   },
 ];
 
+function FloatingBox({ box, scrollYProgress }: { box: any; scrollYProgress: any }) {
+  const y = useTransform(scrollYProgress, [0, 1], [box.yOffset, -box.yOffset]);
+  
+  return (
+    <motion.div
+      className={`absolute ${box.className}`}
+      style={{ y }}
+    >
+      <motion.div 
+        className="w-full h-full glass border-white/10 relative overflow-hidden"
+        style={{ borderRadius: 'inherit' }}
+        animate={{
+          y: [0, 15, -15, 0],
+          rotate: ['0deg', '2deg', '-2deg', '0deg'],
+        }}
+        transition={{
+          duration: box.duration,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: box.delay,
+        }}
+      >
+        {/* Color Tint Overlay inside the glass box */}
+        <div 
+          className="absolute inset-0 z-0" 
+          style={{ 
+            backgroundColor: box.color, 
+            opacity: 0.3,
+          }} 
+        />
+        
+        {/* Faster glow: Radial Gradient instead of heavy blur-3xl */}
+        <div 
+          className="absolute inset-[-50%] z-[-1]"
+          style={{
+            background: `radial-gradient(circle at center, ${box.color} 0%, transparent 60%)`,
+            opacity: 0.45
+          }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -67,51 +111,9 @@ export default function About() {
       {/* --- BACKGROUND FLOATING GLASS PANELS --- */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="relative w-full h-full max-w-[1400px] mx-auto">
-          {FLOATING_BOXES.map((box) => {
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const y = useTransform(scrollYProgress, [0, 1], [box.yOffset, -box.yOffset]);
-            
-            return (
-              <motion.div
-                key={box.id}
-                className={`absolute ${box.className}`}
-                style={{ y }}
-              >
-                <motion.div 
-                  className="w-full h-full glass border-white/10 relative overflow-hidden"
-                  style={{ borderRadius: 'inherit' }}
-                  animate={{
-                    y: [0, 15, -15, 0],
-                    rotate: ['0deg', '2deg', '-2deg', '0deg'],
-                  }}
-                  transition={{
-                    duration: box.duration,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: box.delay,
-                  }}
-                >
-                  {/* Color Tint Overlay inside the glass box */}
-                  <div 
-                    className="absolute inset-0 z-0" 
-                    style={{ 
-                      backgroundColor: box.color, 
-                      opacity: 0.3,
-                    }} 
-                  />
-                  
-                  {/* Glow behind the box content but inside container */}
-                  <div 
-                    className="absolute inset-0 z-[-1] blur-3xl"
-                    style={{
-                      backgroundColor: box.color,
-                      opacity: 0.4
-                    }}
-                  />
-                </motion.div>
-              </motion.div>
-            );
-          })}
+          {FLOATING_BOXES.map((box) => (
+            <FloatingBox key={box.id} box={box} scrollYProgress={scrollYProgress} />
+          ))}
         </div>
       </div>
 

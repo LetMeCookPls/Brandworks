@@ -20,10 +20,14 @@ const VIDEO_URL =
 
 export default function HeroVideo() {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
-    if (!wrapper) return;
+    const video = videoRef.current;
+    if (!wrapper || !video) return;
+
+    let isPlaying = true;
 
     function onScroll() {
       // Target: the #services section
@@ -38,13 +42,25 @@ export default function HeroVideo() {
       const fadeStart = vh * 0.8;
       const fadeEnd   = vh * 0.1;
 
+      let opacity = 1;
       if (servicesTop >= fadeStart) {
-        wrapper!.style.opacity = '1';
+        opacity = 1;
       } else if (servicesTop <= fadeEnd) {
-        wrapper!.style.opacity = '0';
+        opacity = 0;
       } else {
         const progress = (servicesTop - fadeEnd) / (fadeStart - fadeEnd); // 1→0
-        wrapper!.style.opacity = String(Math.max(0, Math.min(1, progress)));
+        opacity = Math.max(0, Math.min(1, progress));
+      }
+
+      wrapper!.style.opacity = String(opacity);
+
+      // Pause video when completely invisible to save CPU/battery
+      if (opacity === 0 && isPlaying) {
+        videoRef.current?.pause();
+        isPlaying = false;
+      } else if (opacity > 0 && !isPlaying) {
+        videoRef.current?.play().catch(() => {}); // catch auto-play restrictions
+        isPlaying = true;
       }
     }
 
@@ -65,6 +81,7 @@ export default function HeroVideo() {
     >
       {/* ── Video ── */}
       <video
+        ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
         src={VIDEO_URL}
         autoPlay
