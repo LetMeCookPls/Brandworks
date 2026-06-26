@@ -55,7 +55,6 @@ export default function HoverSplitText({
   const charSpan = (char: string, i: number, prefix: string, extraStyle?: React.CSSProperties) => (
     <span key={`${prefix}-${i}`} style={{
       display: 'inline-block',
-      willChange: 'transform',
       whiteSpace: char === ' ' ? 'pre' : 'normal',
       ...extraStyle,
     }}>

@@ -114,7 +114,7 @@ export default function Navbar() {
   // Combined translation Y
   const translateY = (hideForFooter) && !isMobileMenuOpen ? '-100%' : '0%'
 
-  if (pathname === '/terms-and-conditions') return null;
+  if (pathname === '/terms-and-conditions' || pathname === '/privacy' || pathname === '/cookies') return null;
 
   return (
     <>

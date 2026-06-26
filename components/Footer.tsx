@@ -1,9 +1,8 @@
 'use client'
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { MapPin, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
-import SplitText from '@/components/SplitText'
 import HoverSplitText from '@/components/HoverSplitText'
 import { usePathname } from 'next/navigation'
 
@@ -31,37 +30,45 @@ const WhatsAppIcon = () => (
   </svg>
 )
 
-// Shared animation preset — avoids recreating objects every render
-const FADE_UP = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-40px' as const },
-  transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const },
+// Shared staggered animation container
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24, filter: 'blur(4px)' },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    filter: 'blur(0px)',
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+  }
 }
 
 // ─── Inner component — owns all hooks ────────────────────────────────────────
-// Must be separate so hooks are never called when Footer returns null early.
 function FooterContent() {
   const wrapperRef = useRef<HTMLDivElement>(null)
 
-  // layoutEffect:false avoids a synchronous ResizeObserver measurement on mount
-  const { scrollYProgress: rawProgress } = useScroll({
+  const { scrollYProgress } = useScroll({
     target: wrapperRef,
     offset: ['start end', 'end end'],
   })
 
-  // useSpring: time-based physics → smooth at any fps (60, 120, 144+)
-  const smoothProgress = useSpring(rawProgress, {
-    stiffness: 120,
-    damping: 28,
-    restDelta: 0.0005,
-  })
-
-  const wordmarkScale = useTransform(smoothProgress, [0, 0.35, 0.9, 1], [0.35, 0.35, 1, 1])
+  // Direct transforms without useSpring for true 1:1 scroll feel (eliminates jank)
+  const wordmarkScale = useTransform(scrollYProgress, [0, 0.4, 1], [0.4, 0.6, 1])
+  const wordmarkOpacity = useTransform(scrollYProgress, [0, 0.3, 0.8], [0, 0.8, 1])
+  const wordmarkY = useTransform(scrollYProgress, [0, 1], [80, 0])
 
   return (
-    <footer className="relative w-full bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between">
-      {/* VIDEO BACKGROUND — GPU-promoted via translateZ(0) */}
+    <footer className="relative w-full bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between overflow-hidden">
+      {/* VIDEO BACKGROUND */}
       <video
         autoPlay
         loop
@@ -74,8 +81,8 @@ function FooterContent() {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
-          opacity: 0.55,
-          // Promote to compositor layer so video decode never blocks main thread
+          opacity: 1,
+          pointerEvents: 'none',
           willChange: 'transform',
           transform: 'translateZ(0)',
         }}
@@ -83,7 +90,7 @@ function FooterContent() {
         <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260306_074215_04640ca7-042c-45d6-bb56-58b1e8a42489.mp4" type="video/mp4" />
       </video>
 
-      {/* GRADIENT OVERLAY — plain div, no JS cost */}
+      {/* GRADIENT OVERLAY */}
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -93,7 +100,7 @@ function FooterContent() {
       }} />
 
       {/* CONTENT WRAPPER */}
-      <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full flex flex-col justify-end min-h-[100svh]">
 
         {/* WORDMARK SECTION */}
         <div
@@ -110,10 +117,11 @@ function FooterContent() {
               position: 'sticky',
               top: 'calc(100svh - clamp(110px, 23vw, 270px) - 5vh)',
               scale: wordmarkScale,
+              opacity: wordmarkOpacity,
+              y: wordmarkY,
               transformOrigin: 'bottom center',
               textAlign: 'center',
-              // GPU-promote this element — scale changes stay on compositor thread
-              willChange: 'transform',
+              willChange: 'transform, opacity',
             }}
           >
             {/* BRANDWORKS */}
@@ -124,7 +132,7 @@ function FooterContent() {
               lineHeight: 0.92,
               display: 'block',
             }}>
-              <SplitText text="BRANDWORKS" delay={0} />
+              BRANDWORKS
             </div>
 
             {/* ADVERTISING CO. */}
@@ -137,171 +145,163 @@ function FooterContent() {
               opacity: 0.88,
               WebkitTextStroke: 'max(0.5px, 0.05vw) rgba(255,255,255,0.7)',
             }}>
-              <SplitText text="ADVERTISING CO." delay={0.3} />
+              ADVERTISING CO.
             </div>
           </motion.div>
         </div>
 
-        {/* DIVIDER 1 */}
-        <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.10)', position: 'relative', zIndex: 10 }} className="md:mx-12 mx-6" />
-
-        {/* NAVIGATION ROW */}
+        {/* BOTTOM CONTENT (Staggered smooth reveal) */}
         <motion.div
-          {...FADE_UP}
-          transition={{ ...FADE_UP.transition, delay: 0.1 }}
-          style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', position: 'relative', zIndex: 10 }}
-          className="gap-6 md:gap-12 px-6 md:px-12 py-9 text-[13px] md:text-[15px]"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-10% 0px' }}
+          variants={containerVariants}
+          className="w-full relative z-10 pt-16"
         >
-          {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
-            <HoverSplitText
-              key={item}
-              text={item}
-              href={`/#${item.toLowerCase()}`}
-              staggerDelay={0.015}
-              style={{
-                fontFamily: 'var(--font-dm-sans), sans-serif',
-                fontWeight: 400,
-                letterSpacing: '0.04em',
-                color: 'rgba(255,255,255,0.55)',
-              }}
-              className="hover:text-white transition-colors duration-200"
-              onClick={(e) => {
-                const el = document.getElementById(item.toLowerCase());
-                if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
-              }}
-            />
-          ))}
-        </motion.div>
+          <motion.div variants={itemVariants}>
+            {/* DIVIDER 1 */}
+            <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.10)' }} className="md:mx-12 mx-6" />
 
-        {/* DIVIDER 2 */}
-        <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.10)', position: 'relative', zIndex: 10 }} className="md:mx-12 mx-6" />
+            {/* NAVIGATION ROW */}
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="gap-6 md:gap-12 px-6 md:px-12 py-9 text-[13px] md:text-[15px]">
+              {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
+                <HoverSplitText
+                  key={item}
+                  text={item}
+                  href={`/#${item.toLowerCase()}`}
+                  staggerDelay={0.015}
+                  style={{
+                    fontFamily: 'var(--font-dm-sans), sans-serif',
+                    fontWeight: 400,
+                    letterSpacing: '0.04em',
+                    color: 'rgba(255,255,255,0.55)',
+                  }}
+                  className="hover:text-white transition-colors duration-200"
+                  onClick={(e) => {
+                    const el = document.getElementById(item.toLowerCase());
+                    if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+                  }}
+                />
+              ))}
+            </div>
+          </motion.div>
 
-        {/* CONTACT INFO GRID */}
-        <motion.div
-          {...FADE_UP}
-          transition={{ ...FADE_UP.transition, delay: 0.2 }}
-          style={{ position: 'relative', zIndex: 10 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:justify-between w-full gap-10 lg:gap-0 px-6 md:px-12 py-16 items-start"
-        >
-          {/* COLUMN 1: Address */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Address</div>
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-[10px]">
-              <MapPin size={14} color="rgba(255,255,255,0.45)" style={{ marginTop: 2, flexShrink: 0 }} />
-              <div className="flex flex-col gap-[2px] items-center sm:items-start">
-                <HoverSplitText text="Brand Works International Company LLC" staggerDelay={0.005} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors text-center sm:text-left" />
-                <HoverSplitText text="Street 22, near Naif Poultry" staggerDelay={0.005} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors text-center sm:text-left" />
-                <HoverSplitText text="Shuwaikh Industrial Area 2, Kuwait" staggerDelay={0.005} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors text-center sm:text-left" />
+          <motion.div variants={itemVariants}>
+            {/* DIVIDER 2 */}
+            <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.10)' }} className="md:mx-12 mx-6" />
+
+            {/* CONTACT INFO GRID */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:justify-between w-full gap-10 lg:gap-0 px-6 md:px-12 py-16 items-start">
+              {/* COLUMN 1: Address */}
+              <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Address</div>
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-[10px]">
+                  <MapPin size={14} color="rgba(255,255,255,0.45)" style={{ marginTop: 2, flexShrink: 0 }} />
+                  <div className="flex flex-col gap-[4px] items-center sm:items-start">
+                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Brand Works International Company LLC</span>
+                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Street 22, near Naif Poultry</span>
+                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Shuwaikh Industrial Area 2, Kuwait</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* COLUMN 2: Phone */}
+              <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Phone</div>
+                <div className="flex items-center gap-[10px]">
+                  <Phone size={14} color="#0DC76A" style={{ flexShrink: 0 }} />
+                  <HoverSplitText text="+965 507 27586" href="tel:+96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+                </div>
+                <div className="flex items-center gap-[10px] mt-3">
+                  <Phone size={14} color="#0DC76A" style={{ flexShrink: 0 }} />
+                  <HoverSplitText text="+971 55 998 1420" href="tel:+971559981420" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+                </div>
+              </div>
+
+              {/* COLUMN 3: Email */}
+              <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Email</div>
+                <div className="flex items-center gap-[10px]">
+                  <Mail size={14} color="#2196E8" style={{ flexShrink: 0 }} />
+                  <HoverSplitText text="info@brandworkskwt.com" href="mailto:info@brandworkskwt.com" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+                </div>
+                <div className="flex items-center gap-[10px] mt-3">
+                  <Mail size={14} color="#2196E8" style={{ flexShrink: 0 }} />
+                  <HoverSplitText text="mustafa@brandworkskwt.com" href="mailto:mustafa@brandworkskwt.com" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+                </div>
+              </div>
+
+              {/* COLUMN 4: Follow Us */}
+              <div className="flex flex-col items-center sm:items-start">
+                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Follow Us</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#F42525] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
+                  <InstagramIcon />
+                  <HoverSplitText text="Instagram" href="https://instagram.com/brandworkskw" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#2196E8] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
+                  <LinkedinIcon />
+                  <HoverSplitText text="LinkedIn" href="https://linkedin.com/company/brandworks" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#0DC76A] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
+                  <WhatsAppIcon />
+                  <HoverSplitText text="WhatsApp" href="https://wa.me/96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* COLUMN 2: Phone */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Phone</div>
-            <div className="flex items-center gap-[10px]">
-              <Phone size={14} color="#0DC76A" style={{ flexShrink: 0 }} />
-              <HoverSplitText text="+965 507 27586" href="tel:+96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
-            </div>
-            <div className="flex items-center gap-[10px] mt-3">
-              <Phone size={14} color="#0DC76A" style={{ flexShrink: 0 }} />
-              <HoverSplitText text="+971 55 998 1420" href="tel:+971559981420" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
-            </div>
-          </div>
+          <motion.div variants={itemVariants}>
+            {/* DIVIDER 3 */}
+            <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.10)' }} className="md:mx-12 mx-6" />
 
-          {/* COLUMN 3: Email */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Email</div>
-            <div className="flex items-center gap-[10px]">
-              <Mail size={14} color="#2196E8" style={{ flexShrink: 0 }} />
-              <HoverSplitText text="info@brandworkskwt.com" href="mailto:info@brandworkskwt.com" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+            {/* LEGAL ROW */}
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="gap-6 md:gap-9 px-6 md:px-12 py-6">
+              {[
+                { name: 'Privacy Policy', path: '/privacy' },
+                { name: 'Terms & Conditions', path: '/terms-and-conditions' },
+                { name: 'Cookie Policy', path: '/cookies' },
+              ].map((item) => (
+                <HoverSplitText
+                  key={item.name}
+                  text={item.name}
+                  href={item.path}
+                  staggerDelay={0.012}
+                  style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.35)' }}
+                  className="hover:text-[rgba(255,255,255,0.75)] transition-colors duration-200"
+                />
+              ))}
             </div>
-            <div className="flex items-center gap-[10px] mt-3">
-              <Mail size={14} color="#2196E8" style={{ flexShrink: 0 }} />
-              <HoverSplitText text="mustafa@brandworkskwt.com" href="mailto:mustafa@brandworkskwt.com" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
-            </div>
-          </div>
+          </motion.div>
 
-          {/* COLUMN 4: Follow Us */}
-          <div className="flex flex-col items-center sm:items-start">
-            <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Follow Us</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#F42525] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
-              <InstagramIcon />
-              <HoverSplitText text="Instagram" href="https://instagram.com/brandworkskw" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+          <motion.div variants={itemVariants}>
+            {/* BOTTOM BAR */}
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }} className="flex flex-col md:flex-row justify-between items-center gap-4 px-6 md:px-12 pt-5 pb-10 text-center md:text-left">
+              <div className="flex flex-col items-center md:items-start">
+                <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.35)', marginBottom: '2px' }}>
+                  © {new Date().getFullYear()} Brandworks Advertising Co.
+                </span>
+                <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '11px', color: 'rgba(255,255,255,0.22)' }}>
+                  All rights reserved.
+                </span>
+              </div>
+
+              <div className="glass-pill" style={{ color: 'rgba(13,198,106,0.85)', padding: '5px 16px', fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                ✓ Licensed &amp; Registered in Kuwait
+              </div>
+
+              <div style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '11px', color: 'rgba(255,255,255,0.20)', letterSpacing: '0.05em' }}>
+                Website by Shaw &amp; LetMeCook
+              </div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#2196E8] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
-              <LinkedinIcon />
-              <HoverSplitText text="LinkedIn" href="https://linkedin.com/company/brandworks" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#0DC76A] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
-              <WhatsAppIcon />
-              <HoverSplitText text="WhatsApp" href="https://wa.me/96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
-            </div>
-          </div>
+          </motion.div>
+
         </motion.div>
-
-        {/* DIVIDER 3 */}
-        <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.10)', position: 'relative', zIndex: 10 }} className="md:mx-12 mx-6" />
-
-        {/* LEGAL ROW */}
-        <motion.div
-          {...FADE_UP}
-          transition={{ ...FADE_UP.transition, delay: 0.3 }}
-          style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', position: 'relative', zIndex: 10 }}
-          className="gap-6 md:gap-9 px-6 md:px-12 py-6"
-        >
-          {[
-            { name: 'Privacy Policy', path: '/privacy' },
-            { name: 'Terms & Conditions', path: '/terms-and-conditions' },
-            { name: 'Cookie Policy', path: '/cookies' },
-          ].map((item) => (
-            <HoverSplitText
-              key={item.name}
-              text={item.name}
-              href={item.path}
-              staggerDelay={0.012}
-              style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.35)' }}
-              className="hover:text-[rgba(255,255,255,0.75)] transition-colors duration-200"
-            />
-          ))}
-        </motion.div>
-
-        {/* BOTTOM BAR */}
-        <motion.div
-          {...FADE_UP}
-          transition={{ ...FADE_UP.transition, delay: 0.4 }}
-          style={{ position: 'relative', zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.07)' }}
-          className="flex flex-col md:flex-row justify-between items-center gap-4 px-6 md:px-12 pt-5 pb-10 text-center md:text-left"
-        >
-          <div className="flex flex-col items-center md:items-start">
-            <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.35)', marginBottom: '2px' }}>
-              © {new Date().getFullYear()} Brandworks Advertising Co.
-            </span>
-            <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '11px', color: 'rgba(255,255,255,0.22)' }}>
-              All rights reserved.
-            </span>
-          </div>
-
-          <div className="glass-pill" style={{ color: 'rgba(13,198,106,0.85)', padding: '5px 16px', fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            ✓ Licensed &amp; Registered in Kuwait
-          </div>
-
-          <div style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '11px', color: 'rgba(255,255,255,0.20)', letterSpacing: '0.05em' }}>
-            Website by Shaw &amp; LetMeCook
-          </div>
-        </motion.div>
-
       </div>
     </footer>
   )
 }
 
 // ─── Outer export — pathname guard ────────────────────────────────────────────
-// Checks route BEFORE rendering FooterContent, so hooks inside FooterContent
-// are never called when the footer should be hidden. This prevents the
-// "Target ref is defined but not hydrated" error from useScroll.
 export default function Footer() {
-  const pathname = usePathname()
-  if (pathname === '/terms-and-conditions') return null
   return <FooterContent />
 }

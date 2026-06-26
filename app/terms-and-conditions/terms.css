@@ -14,7 +14,7 @@
   --border-strong: rgba(255, 255, 255, 0.15);
   --radius: 4px;
   
-  background: var(--cream);
+  background: transparent;
   color: var(--text);
   font-family: var(--font-body);
   font-size: 16px;

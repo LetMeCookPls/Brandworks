@@ -16,14 +16,14 @@ import { useEffect, useRef } from 'react';
  */
 
 const VIDEO_URL =
-  'https://res.cloudinary.com/dehtmwxwn/video/upload/v1778652731/14081587_1920_1080_60fps_qgkow1.mp4';
+  'https://res.cloudinary.com/dehtmwxwn/video/upload/v1782451572/Video_Project_3_nzfl0x.mp4';
 
 export default function VideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.playbackRate = 0.2;
+      videoRef.current.playbackRate = 1;
     }
   }, []);
 

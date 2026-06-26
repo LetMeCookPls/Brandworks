@@ -217,7 +217,7 @@ export default function Contact() {
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.6, ease: EASE }}
       >
-        <div className="glass-panel overflow-hidden p-1 sm:p-1.5">
+        <div className="glass-panel overflow-hidden p-1 sm:p-1.5" data-cursor-disable="true">
           <div className="relative w-full overflow-hidden rounded-[14px] border border-white/10">
             <div
               className="pointer-events-none absolute inset-0 z-10"
