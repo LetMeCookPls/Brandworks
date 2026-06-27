@@ -63,8 +63,8 @@ function FooterContent() {
 
   // Direct transforms without useSpring for true 1:1 scroll feel (eliminates jank)
   const wordmarkScale = useTransform(scrollYProgress, [0, 0.4, 1], [0.4, 0.6, 1])
-  const wordmarkOpacity = useTransform(scrollYProgress, [0, 0.3, 0.8], [0, 0.8, 1])
-  const wordmarkY = useTransform(scrollYProgress, [0, 1], [80, 0])
+  const wordmarkOpacity = useTransform(scrollYProgress, [0, 0.3, 0.8], [0.5, 1, 1])
+  const wordmarkY = useTransform(scrollYProgress, [0, 1], [40, 0])
 
   return (
     <footer className="relative w-full bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between overflow-hidden">
