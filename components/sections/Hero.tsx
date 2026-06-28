@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import HoverSplitText from '@/components/HoverSplitText';
+import HeroGrid from '@/components/HeroGrid';
 
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
@@ -28,6 +29,9 @@ const itemVariants = {
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-20 bg-transparent">
+
+      {/* ── Grid Background ─────────────────────────────────────────── */}
+      <HeroGrid />
 
       {/* ── Content ────────────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
