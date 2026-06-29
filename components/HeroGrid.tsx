@@ -45,34 +45,50 @@ const LOGO_POSITIONS: { row: number; col: number; color: string }[] = [
   { row: 2, col: 2, color: '#03C366' }, // C3 — Green
 ];
 
-/** Build logo-cell flat-index descriptors for a given column count */
-function buildLogoCells(cols: number) {
+/** Build logo-cell flat-index descriptors for a given column count and row offset */
+function buildLogoCells(cols: number, rowOffset: number = 0) {
   return LOGO_POSITIONS.map(({ row, col, color }) => ({
     color,
-    index: row * cols + col,
+    index: (row + rowOffset) * cols + col,
   }));
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function HeroGrid() {
-  const cols      = COLS;
-  const total     = ROWS * cols;
+  const cols = COLS;
+  const [rows, setRows] = useState(ROWS);
+  const [rowOffset, setRowOffset] = useState(0);
+  
+  const total = rows * cols;
   const { scrollY } = useScroll();
   const [vh, setVh] = useState(800);
 
   useEffect(() => {
-    // Set accurate viewport height on client side
-    setVh(window.innerHeight);
-    const handleResize = () => setVh(window.innerHeight);
+    const handleResize = () => {
+      setVh(window.innerHeight);
+      const isPortrait = window.innerHeight > window.innerWidth;
+      if (isPortrait) {
+        // Calculate enough rows to cover height with roughly square cells
+        const cellW = window.innerWidth / cols;
+        const reqRows = Math.ceil(window.innerHeight / cellW);
+        const actualRows = Math.max(ROWS, reqRows);
+        setRows(actualRows);
+        setRowOffset(Math.floor((actualRows - ROWS) / 2));
+      } else {
+        setRows(ROWS);
+        setRowOffset(0);
+      }
+    };
+    handleResize(); // Set immediately on mount
     window.addEventListener('resize', handleResize, { passive: true });
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [cols]);
 
   // Fade out starting at 80% of hero height, fully transparent at 150% (mid GlobalPartners)
   const opacity = useTransform(scrollY, [vh * 0.8, vh * 1.5], [1, 0]);
 
-  const logoCells = buildLogoCells(cols);
+  const logoCells = buildLogoCells(cols, rowOffset);
 
   const containerRef    = useRef<HTMLDivElement>(null);
   const glowRef         = useRef<HTMLDivElement>(null);
@@ -205,14 +221,10 @@ export default function HeroGrid() {
       <div
         style={{
           position           : 'absolute',
-          top                : '50%',
-          left               : '50%',
-          transform          : 'translate(-50%, -50%)',
-          width              : 'max(100vw, calc(100vh * (7/3)))',
-          height             : 'max(100vh, calc(100vw * (3/7)))',
+          inset              : 0,
           display            : 'grid',
-          gridTemplateRows   : `repeat(${ROWS}, 1fr)`,
-          gridTemplateColumns: `repeat(${COLS}, 1fr)`,
+          gridTemplateRows   : `repeat(${rows}, 1fr)`,
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gap                : '0px', // borders touch to form the glass lines
           pointerEvents      : 'auto',
         }}
