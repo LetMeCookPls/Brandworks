@@ -489,11 +489,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   height: 280vh;           /* 100vh visible + 180vh scroll headroom */
 }
 
-/* ── Sticky frame — pins at top:0 while parent scrolls ───────────────────── */
+/* ── Sticky frame — pins below navbar while parent scrolls ───────────────── */
 .scroll-pin-sticky {
   position: sticky;
-  top: 0;
-  height: 100vh;           /* always fills the viewport */
+  top: 80px;                 /* offset by fixed navbar height */
+  height: calc(100vh - 80px); /* fill the viewport below the navbar */
   /* overflow: hidden removed to prevent clipping the hero card's rounded bottom corners */
   display: flex;
   align-items: center;     /* vertically centre the editorial grid */
