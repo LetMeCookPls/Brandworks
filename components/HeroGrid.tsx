@@ -205,10 +205,14 @@ export default function HeroGrid() {
       <div
         style={{
           position           : 'absolute',
-          inset              : 0,
+          top                : '50%',
+          left               : '50%',
+          transform          : 'translate(-50%, -50%)',
+          width              : 'max(100vw, calc(100vh * (7/3)))',
+          height             : 'max(100vh, calc(100vw * (3/7)))',
           display            : 'grid',
           gridTemplateRows   : `repeat(${ROWS}, 1fr)`,
-          gridTemplateColumns: `0.5fr repeat(${COLS - 2}, 1fr) 0.5fr`,
+          gridTemplateColumns: `repeat(${COLS}, 1fr)`,
           gap                : '0px', // borders touch to form the glass lines
           pointerEvents      : 'auto',
         }}
