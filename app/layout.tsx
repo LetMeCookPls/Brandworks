@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   description: 'A premium international agency specializing in signage, shop installation, interiors, and branding/design.',
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: {
