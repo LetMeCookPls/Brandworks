@@ -436,7 +436,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
 
       {/* ── Bottom overlay — title + subtitle + controls ── */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[25%] max-h-[25%] px-7 flex items-center justify-between z-20
+        className="absolute bottom-0 left-0 right-0 h-auto min-h-[25%] px-4 md:px-7 py-4 md:py-0 flex items-center justify-between z-20
                    glass border-x-0 border-b-0 border-t-white/10"
         style={{ borderBottomLeftRadius: scrollRadius, borderBottomRightRadius: scrollRadius }}
       >
@@ -453,7 +453,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
             animate="center"
             exit="exit"
             transition={{ duration: 0.4, ease: EASE }}
-            className="flex-1 pr-6 relative z-10"
+            className="flex-1 min-w-0 pr-4 md:pr-6 relative z-10"
           >
             <span className="text-[10px] text-white/45 font-medium tracking-wider mb-1 block font-space-grotesk">
               {slide.category}
@@ -484,7 +484,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
             </span>
 
             {/* Dots */}
-            <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
               {heroSlides.map((s, i) => (
                 <button
                   key={s.id}
