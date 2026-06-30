@@ -61,10 +61,8 @@ function FooterContent() {
     offset: ['start end', 'end end'],
   })
 
-  // Direct transforms without useSpring for true 1:1 scroll feel (eliminates jank)
-  const wordmarkScale = useTransform(scrollYProgress, [0, 0.4, 1], [0.4, 0.6, 1])
-  const wordmarkOpacity = useTransform(scrollYProgress, [0, 0.3, 0.8], [0.5, 1, 1])
-  const wordmarkY = useTransform(scrollYProgress, [0, 1], [40, 0])
+  const wordmarkScale = useTransform(scrollYProgress, [0, 0.35, 0.9, 1], [0.35, 0.35, 1, 1])
+  const wordmarkY = useTransform(scrollYProgress, [0, 1], [80, 0])
 
   return (
     <footer className="relative w-full bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between overflow-hidden">
@@ -115,38 +113,42 @@ function FooterContent() {
           <motion.div
             style={{
               position: 'sticky',
-              top: 'calc(100svh - clamp(110px, 23vw, 270px) - 5vh)',
+              top: 'calc(100svh - clamp(110px, 23vw, 270px) - 15vh)',
               scale: wordmarkScale,
-              opacity: wordmarkOpacity,
               y: wordmarkY,
               transformOrigin: 'bottom center',
               textAlign: 'center',
-              willChange: 'transform, opacity',
+              willChange: 'transform',
             }}
           >
-            {/* BRANDWORKS */}
-            <div className="liquid-glass-text" style={{
-              fontFamily: 'var(--font-bebas)',
-              fontSize: 'clamp(72px, 16vw, 190px)',
-              letterSpacing: '0.01em',
-              lineHeight: 0.92,
-              display: 'block',
-            }}>
-              BRANDWORKS
-            </div>
-
-            {/* ADVERTISING CO. */}
-            <div className="liquid-glass-text" style={{
-              fontFamily: 'var(--font-bebas)',
-              fontSize: 'clamp(26px, 5.5vw, 62px)',
-              letterSpacing: '0.18em',
-              marginTop: '-4px',
-              display: 'block',
-              opacity: 0.88,
-              WebkitTextStroke: 'max(0.5px, 0.05vw) rgba(255,255,255,0.7)',
-            }}>
-              ADVERTISING CO.
-            </div>
+            <motion.div
+              animate={{ scale: [1, 1.04, 1] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            >
+              {/* BRANDWORKS */}
+              <div className="liquid-glass-text" style={{
+                fontFamily: 'var(--font-bebas)',
+                fontSize: 'clamp(72px, 16vw, 190px)',
+                letterSpacing: '0.01em',
+                lineHeight: 0.92,
+                display: 'block',
+              }}>
+                BRANDWORKS
+              </div>
+  
+              {/* ADVERTISING CO. */}
+              <div className="liquid-glass-text" style={{
+                fontFamily: 'var(--font-bebas)',
+                fontSize: 'clamp(26px, 5.5vw, 62px)',
+                letterSpacing: '0.18em',
+                marginTop: '-4px',
+                display: 'block',
+                opacity: 0.88,
+                WebkitTextStroke: 'max(0.5px, 0.05vw) rgba(255,255,255,0.7)',
+              }}>
+                ADVERTISING CO.
+              </div>
+            </motion.div>
           </motion.div>
         </div>
 
