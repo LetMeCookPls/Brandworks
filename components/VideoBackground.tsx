@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
  * VideoBackground
@@ -21,6 +22,22 @@ const VIDEO_URL =
 export default function VideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const { scrollY } = useScroll();
+  const [vh, setVh] = useState(800);
+
+  useEffect(() => {
+    // Set accurate viewport height on client side
+    setVh(window.innerHeight);
+    const handleResize = () => setVh(window.innerHeight);
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Fade IN the video starting at 80% of hero height, fully visible at 150% (mid GlobalPartners)
+  // This perfectly crossfades with the HeroGrid fading out!
+  const videoOpacity = useTransform(scrollY, [vh * 0.8, vh * 1.5], [0, 0.7]);
+  const overlayOpacity = useTransform(scrollY, [vh * 0.8, vh * 1.5], [0, 1]);
+
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 1;
@@ -30,10 +47,10 @@ export default function VideoBackground() {
   return (
     <>
       {/* ── Looping video ── */}
-      <video
+      <motion.video
         ref={videoRef}
-        className="fixed inset-0 w-full h-full object-cover pointer-events-none opacity-70"
-        style={{ zIndex: -20 }}
+        className="fixed inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ zIndex: -20, opacity: videoOpacity }}
         src={VIDEO_URL}
         autoPlay
         muted
@@ -44,10 +61,11 @@ export default function VideoBackground() {
       />
 
       {/* ── Dark tint overlay so body text stays readable ── */}
-      <div
+      <motion.div
         className="fixed inset-0 pointer-events-none"
         style={{
           zIndex: -10,
+          opacity: overlayOpacity,
           background:
             'linear-gradient(to bottom, rgba(13,13,15,0.45) 0%, rgba(13,13,15,0.35) 100%)',
         }}

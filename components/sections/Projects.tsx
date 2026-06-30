@@ -252,17 +252,17 @@ function SideCard({
       {/* Overlay text */}
       <div className="absolute bottom-0 left-0 right-0 h-[25%] max-h-[25%] flex flex-col justify-center px-4 overflow-hidden
                       glass border-x-0 border-b-0 border-t-white/10 z-20
-                      translate-y-1 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                      translate-y-0 md:translate-y-1 md:group-hover:translate-y-0 transition-all duration-500 ease-out">
         {/* Darkening layer strictly constrained to the 25% boundary */}
         <div className="absolute inset-0 bg-black/50 z-0" />
         
         {/* Horizontal arrangement to prevent vertical overflow on small cards */}
         <div className="flex items-center justify-between w-full relative z-10">
            <div className="flex-1 min-w-0 pr-2">
-              <h3 className="font-syne font-semibold text-white text-[clamp(11px,1.2vw,16px)] leading-tight truncate">
+              <h3 className="font-syne font-semibold text-white text-[clamp(12px,1.4vw,16px)] leading-tight truncate">
                 {project.title}
               </h3>
-              <p className="text-white/50 text-[clamp(9px,0.9vw,11px)] leading-snug truncate mt-0.5 font-light tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-400 delay-75">
+              <p className="text-white/50 text-[clamp(10px,1.1vw,12px)] leading-snug truncate mt-0.5 font-light tracking-wide opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-400 delay-75">
                 {project.subtitle}
               </p>
            </div>
@@ -671,8 +671,8 @@ export default function Projects() {
                 {/* Floating Top Right */}
                 <motion.div style={{
                   y: topCenterYPct,
-                  width: '45%',
-                  alignSelf: 'flex-end',
+                  width: isDesktop ? '45%' : '100%',
+                  alignSelf: isDesktop ? 'flex-end' : 'stretch',
                   zIndex: 11,
                   opacity: sideOpacity,
                   willChange: 'transform, opacity',
@@ -689,8 +689,8 @@ export default function Projects() {
                 {/* Floating Bottom Left */}
                 <motion.div style={{
                   y: botCenterYPct,
-                  width: '45%',
-                  alignSelf: 'flex-start',
+                  width: isDesktop ? '45%' : '100%',
+                  alignSelf: isDesktop ? 'flex-start' : 'stretch',
                   zIndex: 11,
                   opacity: sideOpacity,
                   willChange: 'transform, opacity',

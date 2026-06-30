@@ -779,7 +779,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
     flex-direction: column;
     align-items: flex-start;
   }
-  .projects-subtitle { text-align: left; max-width: 100%; }
+  .projects-subtitle { text-align: left; max-width: 100%; padding-left: 0; margin-top: 8px; }
 
   .editorial-grid {
     grid-template-columns: 1fr;
@@ -798,6 +798,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   .hero-card { min-height: 420px; height: 420px; }
 
   .side-card { min-height: 200px; }
+  .side-card--portrait { aspect-ratio: 4 / 3; }
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
