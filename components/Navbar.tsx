@@ -342,10 +342,13 @@ export default function Navbar() {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
+              paddingTop: '90px',
+              paddingBottom: '20px',
+              overflowY: 'auto',
             }}
           >
             {/* Inner Content */}
-            <div className="flex flex-col items-center w-full max-w-sm px-6">
+            <div className="flex flex-col items-center w-full max-w-sm px-6 my-auto">
               {/* Links */}
               <motion.div 
                 className="flex flex-col items-center gap-6 mb-16"

@@ -62,10 +62,9 @@ function FooterContent() {
   })
 
   const wordmarkScale = useTransform(scrollYProgress, [0, 0.35, 0.9, 1], [0.35, 0.35, 1, 1])
-  const wordmarkY = useTransform(scrollYProgress, [0, 1], [80, 0])
 
   return (
-    <footer className="relative w-full bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between overflow-hidden">
+    <footer className="relative w-full bg-[#050508] text-white min-h-[100svh] flex flex-col justify-between">
       {/* VIDEO BACKGROUND */}
       <video
         autoPlay
@@ -85,7 +84,7 @@ function FooterContent() {
           transform: 'translateZ(0)',
         }}
       >
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260306_074215_04640ca7-042c-45d6-bb56-58b1e8a42489.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dehtmwxwn/video/upload/v1782716384/VN20260629_122121_fjccwt.mp4" type="video/mp4" />
       </video>
 
       {/* GRADIENT OVERLAY */}
@@ -115,7 +114,6 @@ function FooterContent() {
               position: 'sticky',
               top: 'calc(100svh - clamp(110px, 23vw, 270px) - 15vh)',
               scale: wordmarkScale,
-              y: wordmarkY,
               transformOrigin: 'bottom center',
               textAlign: 'center',
               willChange: 'transform',
