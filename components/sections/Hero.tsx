@@ -43,9 +43,9 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
         >
-          <motion.div className="flex flex-col mb-6" variants={containerVariants}>
-            <motion.h1
-              className="font-playfair font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-white m-0"
+          <motion.h1 className="flex flex-col mb-6" variants={containerVariants}>
+            <motion.span
+              className="block font-playfair font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-white m-0"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -57,9 +57,9 @@ export default function Hero() {
                 duration={0.60}
                 style={{ color: 'inherit', fontFamily: 'inherit', letterSpacing: 'inherit' }}
               />
-            </motion.h1>
-            <motion.h1
-              className="font-playfair font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-brand-red m-0"
+            </motion.span>
+            <motion.span
+              className="block font-playfair font-extrabold text-[56px] md:text-[80px] leading-[1.05] tracking-tight text-brand-red m-0"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -71,9 +71,9 @@ export default function Hero() {
                 duration={0.60}
                 style={{ color: 'inherit', fontFamily: 'inherit', letterSpacing: 'inherit' }}
               />
-            </motion.h1>
-            <motion.h1
-              className="font-playfair font-bold text-3xl md:text-[44px] leading-tight text-gray-400 mt-2"
+            </motion.span>
+            <motion.span
+              className="block font-playfair font-bold text-3xl md:text-[44px] leading-tight text-gray-400 mt-2"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -85,8 +85,8 @@ export default function Hero() {
                 duration={0.55}
                 style={{ color: 'inherit', fontFamily: 'inherit', letterSpacing: 'inherit' }}
               />
-            </motion.h1>
-          </motion.div>
+            </motion.span>
+          </motion.h1>
 
           <motion.p
             className="font-dm-sans text-xl text-gray-300 tracking-wide mb-10 max-w-xl"
@@ -96,7 +96,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div className="flex flex-wrap gap-6 items-center" variants={itemVariants}>
-            <a href="#projects" className="group relative block">
+            <a href="#projects" className="group relative block" aria-label="See our portfolio of projects">
               <GlassCard hoverable className="px-8 py-4 bg-white/10 hover:bg-white/15 border-white/20">
                 <span className="font-playfair font-semibold text-white tracking-wide group-hover:text-brand-red transition-colors">
                   See Our Work
@@ -107,9 +107,10 @@ export default function Hero() {
             <a
               href="#contact"
               className="group flex items-center gap-2 font-playfair font-medium text-white hover:text-brand-red transition-colors"
+              aria-label="Get in touch with us"
             >
               Get in Touch
-              <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </a>
           </motion.div>
         </motion.div>
@@ -122,8 +123,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8, ease: EASE }}
         >
           <GlassCard className="p-8 flex flex-col gap-8 shadow-2xl relative">
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-red rounded-full mix-blend-screen filter blur-[64px] opacity-20" />
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-blue-light rounded-full mix-blend-screen filter blur-[64px] opacity-20" />
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-red rounded-full mix-blend-screen filter blur-[64px] opacity-20" aria-hidden="true" />
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-blue-light rounded-full mix-blend-screen filter blur-[64px] opacity-20" aria-hidden="true" />
 
             <div className="flex flex-col pl-4 border-l-4 border-brand-red">
               <span className="font-playfair font-normal text-3xl text-white">150+</span>
@@ -149,6 +150,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
+        aria-hidden="true"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

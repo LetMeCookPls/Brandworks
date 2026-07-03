@@ -97,6 +97,15 @@ export default function Services() {
   return (
     <section id="services" className="py-24 sm:py-32 relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <SectionHeading>What We Do</SectionHeading>
+      <motion.p 
+        className="font-dm-sans text-gray-400 max-w-2xl mt-6 text-lg"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
+        Delivering premium bespoke signage, luxury retail mall pop-ups, exhibition stands, and interior design solutions across Kuwait and the GCC to elevate your brand presence.
+      </motion.p>
 
       <motion.div 
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16"

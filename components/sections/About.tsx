@@ -172,7 +172,7 @@ export default function About() {
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
               <div className="absolute top-0 left-0 w-1.5 h-full bg-white/20 group-hover:bg-brand-red transition-colors duration-500" />
-              <h4 className="font-syne font-bold text-xl md:text-2xl text-white mb-6 pl-4">Our Mission</h4>
+              <h3 className="font-syne font-bold text-xl md:text-2xl text-white mb-6 pl-4">Our Mission</h3>
               <p className="font-dm-sans text-white/85 italic leading-relaxed text-lg md:text-xl pl-4 drop-shadow-md">
                 &quot;To empower businesses by constructing visually striking, structurally sound, and strategically aligned physical brand experiences.&quot;
               </p>

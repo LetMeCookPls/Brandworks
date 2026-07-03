@@ -65,14 +65,16 @@ export default function GlobalPartners() {
                 {/* Dull Logo - Hidden on mobile/tablet, visible on desktop until hovered */}
                 <img 
                   src={partner.logoDull} 
-                  alt={`${partner.name} logo`}
+                  alt={`${partner.name} partner logo`}
+                  loading="lazy"
                   className="hidden lg:block absolute inset-0 w-full h-full object-contain object-center transition-all duration-500 group-hover:opacity-0 group-hover:scale-95"
                 />
                 
                 {/* Bright Logo - Always visible on mobile/tablet, hidden on desktop until hovered */}
                 <img 
                   src={partner.logoBright} 
-                  alt={`${partner.name} logo`}
+                  alt={`${partner.name} partner logo`}
+                  loading="lazy"
                   className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-500 lg:opacity-0 lg:scale-95 group-hover:lg:opacity-100 group-hover:lg:scale-100"
                 />
               </a>

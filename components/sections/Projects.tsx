@@ -234,7 +234,7 @@ function SideCard({
       <div className="side-card__img-wrap">
         <Image
           src={project.img}
-          alt={project.title}
+          alt={`${project.title} - ${project.subtitle} | ${project.category}`}
           fill
           sizes="(max-width: 768px) 100vw, 25vw"
           className="side-card__img object-cover"
@@ -373,7 +373,7 @@ function HeroCard({ scrollScale, scrollRadius, scrollOpacity }: HeroCardProps) {
           >
             <Image
               src={slide.img}
-              alt={slide.title}
+              alt={`${slide.title} - ${slide.subtitle} | ${slide.category}`}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 50vw"

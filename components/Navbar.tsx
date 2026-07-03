@@ -112,7 +112,7 @@ export default function Navbar() {
   }
 
   // Combined translation Y
-  const translateY = (hideForFooter) && !isMobileMenuOpen ? '-100%' : '0%'
+  const translateY = (hideForFooter) && !isMobileMenuOpen ? -150 : 0
 
   if (pathname === '/terms-and-conditions' || pathname === '/privacy' || pathname === '/cookies') return null;
 
@@ -195,7 +195,7 @@ export default function Navbar() {
           </Link>
 
           {/* CENTER — Nav links (desktop) */}
-          <div className="hidden md:flex gap-9 items-center">
+          <div className="hidden lg:flex gap-9 items-center">
             {navLinks.map((link) => (
               <HoverSplitText
                 key={link.label}
@@ -249,7 +249,7 @@ export default function Navbar() {
             </div>
 
             {/* CTA Desktop */}
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <a
                 href="#contact"
                 className="glass-button"
@@ -277,7 +277,7 @@ export default function Navbar() {
 
             {/* Mobile Burger */}
             <button 
-              className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[6px] relative z-50"
+              className="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-[6px] relative z-50"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <motion.div 

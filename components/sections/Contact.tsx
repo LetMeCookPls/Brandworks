@@ -267,6 +267,7 @@ export default function Contact() {
                 <button 
                   onClick={() => setStatus('idle')}
                   className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                  aria-label="Close dialog"
                 >
                   <X size={24} />
                 </button>

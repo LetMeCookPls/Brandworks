@@ -14,8 +14,31 @@ const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfa
 const cinzel = Cinzel({ subsets: ['latin'], variable: '--font-cinzel', weight: ['400', '500', '600', '700', '800', '900'] });
 
 export const metadata: Metadata = {
-  title: 'Brandworks Advertising | Kuwait',
-  description: 'A premium international agency specializing in signage, shop installation, interiors, and branding/design.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://brandworkskwt.com'),
+  title: {
+    default: 'Brandworks Advertising | Premium Signage & Retail Design in Kuwait',
+    template: '%s | Brandworks Advertising Kuwait',
+  },
+  description: 'Brandworks is a premium international agency in Kuwait specializing in bespoke signage, luxury retail mall pop-ups, exhibition stands, and interior design across the GCC.',
+  keywords: ['Brandworks Kuwait', 'Advertising Agency Kuwait', 'Custom Signage Kuwait', 'Retail Design GCC', 'Exhibition Stands Kuwait', 'Mall Pop-ups', 'Acrylic Fabrication', 'Interior Design'],
+  authors: [{ name: 'Brandworks Advertising' }],
+  creator: 'Brandworks Advertising',
+  openGraph: {
+    type: 'website',
+    locale: 'en_KW',
+    url: '/',
+    title: 'Brandworks Advertising | Premium Signage & Retail Design in Kuwait',
+    description: 'Brandworks is a premium international agency in Kuwait specializing in bespoke signage, luxury retail mall pop-ups, exhibition stands, and interior design across the GCC.',
+    siteName: 'Brandworks Advertising',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Brandworks Advertising | Premium Signage & Retail Design in Kuwait',
+    description: 'Brandworks is a premium international agency in Kuwait specializing in bespoke signage, luxury retail mall pop-ups, exhibition stands, and interior design across the GCC.',
+  },
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export const viewport = {
