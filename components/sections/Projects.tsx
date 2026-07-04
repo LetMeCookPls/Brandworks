@@ -721,7 +721,7 @@ export default function Projects() {
       {/* ════════════════════════════════════════════════════════════════
           BELOW-FOLD CONTENT — normal flow, appears after pin releases
       ════════════════════════════════════════════════════════════════ */}
-      <div className="projects-container projects-below-fold">
+      <div className="projects-container projects-below-fold pt-24 md:pt-32">
 
         {/* Stats bar */}
         <motion.div

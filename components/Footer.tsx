@@ -163,7 +163,7 @@ function FooterContent() {
             <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.10)' }} className="md:mx-12 mx-6" />
 
             {/* NAVIGATION ROW */}
-            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="gap-6 md:gap-12 px-6 md:px-12 py-9 text-[13px] md:text-[15px]">
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} className="gap-6 md:gap-12 px-6 md:px-12 py-9 text-[14px] md:text-[16px]">
               {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
                 <HoverSplitText
                   key={item}
@@ -174,7 +174,7 @@ function FooterContent() {
                     fontFamily: 'var(--font-dm-sans), sans-serif',
                     fontWeight: 400,
                     letterSpacing: '0.04em',
-                    color: 'rgba(255,255,255,0.55)',
+                    color: 'rgba(255,255,255,0.75)',
                   }}
                   className="hover:text-white transition-colors duration-200"
                   onClick={(e) => {
@@ -194,57 +194,57 @@ function FooterContent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:justify-between w-full gap-10 lg:gap-0 px-6 md:px-12 py-16 items-start">
               {/* COLUMN 1: Address */}
               <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Address</div>
+                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.5)', marginBottom: '16px' }}>Address</div>
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-[10px]">
-                  <MapPin size={14} color="rgba(255,255,255,0.45)" style={{ marginTop: 2, flexShrink: 0 }} />
+                  <MapPin size={16} color="rgba(255,255,255,0.6)" style={{ marginTop: 2, flexShrink: 0 }} />
                   <div className="flex flex-col gap-[4px] items-center sm:items-start">
-                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Brand Works International Company LLC</span>
-                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Street 22, near Naif Poultry</span>
-                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Shuwaikh Industrial Area 2, Kuwait</span>
+                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Brand Works International Company LLC</span>
+                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Street 22, near Naif Poultry</span>
+                    <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }} className="hover:text-white transition-colors">Shuwaikh Industrial Area 2, Kuwait</span>
                   </div>
                 </div>
               </div>
 
               {/* COLUMN 2: Phone */}
               <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Phone</div>
+                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.5)', marginBottom: '16px' }}>Phone</div>
                 <div className="flex items-center gap-[10px]">
-                  <Phone size={14} color="#0DC76A" style={{ flexShrink: 0 }} />
-                  <HoverSplitText text="+965 507 27586" href="tel:+96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+                  <Phone size={16} color="#0DC76A" style={{ flexShrink: 0 }} />
+                  <HoverSplitText text="+965 507 27586" href="tel:+96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.85)' }} className="hover:text-white transition-colors" />
                 </div>
                 <div className="flex items-center gap-[10px] mt-3">
-                  <Phone size={14} color="#0DC76A" style={{ flexShrink: 0 }} />
-                  <HoverSplitText text="+971 55 998 1420" href="tel:+971559981420" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+                  <Phone size={16} color="#0DC76A" style={{ flexShrink: 0 }} />
+                  <HoverSplitText text="+971 55 998 1420" href="tel:+971559981420" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.85)' }} className="hover:text-white transition-colors" />
                 </div>
               </div>
 
               {/* COLUMN 3: Email */}
               <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Email</div>
+                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.5)', marginBottom: '16px' }}>Email</div>
                 <div className="flex items-center gap-[10px]">
-                  <Mail size={14} color="#2196E8" style={{ flexShrink: 0 }} />
-                  <HoverSplitText text="info@brandworkskwt.com" href="mailto:info@brandworkskwt.com" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+                  <Mail size={16} color="#2196E8" style={{ flexShrink: 0 }} />
+                  <HoverSplitText text="info@brandworkskwt.com" href="mailto:info@brandworkskwt.com" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.85)' }} className="hover:text-white transition-colors" />
                 </div>
                 <div className="flex items-center gap-[10px] mt-3">
-                  <Mail size={14} color="#2196E8" style={{ flexShrink: 0 }} />
-                  <HoverSplitText text="mustafa@brandworkskwt.com" href="mailto:mustafa@brandworkskwt.com" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }} className="hover:text-white transition-colors" />
+                  <Mail size={16} color="#2196E8" style={{ flexShrink: 0 }} />
+                  <HoverSplitText text="mustafa@brandworkskwt.com" href="mailto:mustafa@brandworkskwt.com" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'rgba(255,255,255,0.85)' }} className="hover:text-white transition-colors" />
                 </div>
               </div>
 
               {/* COLUMN 4: Follow Us */}
               <div className="flex flex-col items-center sm:items-start">
-                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.38)', marginBottom: '16px' }}>Follow Us</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#F42525] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
+                <div style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.5)', marginBottom: '16px' }}>Follow Us</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#F42525] transition-all duration-200 text-[rgba(255,255,255,0.85)] px-4 py-2">
                   <InstagramIcon />
-                  <HoverSplitText text="Instagram" href="https://instagram.com/brandworkskw" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+                  <HoverSplitText text="Instagram" href="https://instagram.com/brandworkskw" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '15px', color: 'inherit' }} />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#2196E8] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#2196E8] transition-all duration-200 text-[rgba(255,255,255,0.85)] px-4 py-2">
                   <LinkedinIcon />
-                  <HoverSplitText text="LinkedIn" href="https://linkedin.com/company/brandworks" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+                  <HoverSplitText text="LinkedIn" href="https://linkedin.com/company/brandworks" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '15px', color: 'inherit' }} />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#0DC76A] transition-all duration-200 text-[rgba(255,255,255,0.65)] px-4 py-2">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }} className="glass-pill glass-hover hover:text-[#0DC76A] transition-all duration-200 text-[rgba(255,255,255,0.85)] px-4 py-2">
                   <WhatsAppIcon />
-                  <HoverSplitText text="WhatsApp" href="https://wa.me/96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '14px', color: 'inherit' }} />
+                  <HoverSplitText text="WhatsApp" href="https://wa.me/96550727586" staggerDelay={0.012} style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '15px', color: 'inherit' }} />
                 </div>
               </div>
             </div>
@@ -266,8 +266,8 @@ function FooterContent() {
                   text={item.name}
                   href={item.path}
                   staggerDelay={0.012}
-                  style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.35)' }}
-                  className="hover:text-[rgba(255,255,255,0.75)] transition-colors duration-200"
+                  style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.55)' }}
+                  className="hover:text-[rgba(255,255,255,0.9)] transition-colors duration-200"
                 />
               ))}
             </div>
@@ -277,19 +277,19 @@ function FooterContent() {
             {/* BOTTOM BAR */}
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }} className="flex flex-col md:flex-row justify-between items-center gap-4 px-6 md:px-12 pt-5 pb-10 text-center md:text-left">
               <div className="flex flex-col items-center md:items-start">
-                <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.35)', marginBottom: '2px' }}>
+                <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '13px', color: 'rgba(255,255,255,0.55)', marginBottom: '2px' }}>
                   © {new Date().getFullYear()} Brandworks Advertising Co.
                 </span>
-                <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '11px', color: 'rgba(255,255,255,0.22)' }}>
+                <span style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.45)' }}>
                   All rights reserved.
                 </span>
               </div>
 
-              <div className="glass-pill" style={{ color: 'rgba(13,198,106,0.85)', padding: '5px 16px', fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <div className="glass-pill" style={{ color: 'rgba(13,198,106,0.95)', padding: '5px 16px', fontFamily: 'var(--font-space-grotesk), sans-serif', fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                 ✓ Licensed &amp; Registered in Kuwait
               </div>
 
-              <div style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '11px', color: 'rgba(255,255,255,0.20)', letterSpacing: '0.05em' }}>
+              <div style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: '12px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.05em' }}>
                 Website by Shaw &amp; LetMeCook
               </div>
             </div>
